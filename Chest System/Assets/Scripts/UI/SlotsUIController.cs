@@ -1,7 +1,7 @@
-using NUnit.Framework;
-using System;
-using UnityEngine;
+
+using ChestSystem.Events;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ChestSystem.UI
 {
@@ -12,6 +12,7 @@ namespace ChestSystem.UI
         public SlotsUIController()
         {
             slotList = new List<SlotsUIView>();
+            //GameService.Instance.eventService.OnChestGeneratedEvent.AddListener(GetChestSlotPosition);
         }
 
 
@@ -25,7 +26,16 @@ namespace ChestSystem.UI
 
         public void SetSlotPosition()
         {
-                slotList[slotList.Count - 1].transform.SetSiblingIndex(slotList.Count - 1);
+            slotList[slotList.Count - 1].transform.SetSiblingIndex(slotList.Count - 1);
         }
+
+        public Transform GetChestSlotPosition()
+        { 
+            Transform slotTransform = slotList[0].transform;
+            return slotTransform;
+
+        }
+
+
     }
 }

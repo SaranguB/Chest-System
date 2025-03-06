@@ -15,6 +15,7 @@ namespace ChestSystem.UI
         [SerializeField] private int initialSlots;
         [SerializeField] private Button addSlotButton;
 
+        [SerializeField] private Button generateChestButton;
 
         private void Start()
         {
@@ -24,7 +25,9 @@ namespace ChestSystem.UI
             for (int i = 1; i <= initialSlots; i++)
                 CreateSlot();
 
+            generateChestButton.onClick.AddListener(GameService.Instance.chestService.GenerateChest);
             SubscribeToEvents();
+
         }
 
         private void OnDisable()
@@ -34,12 +37,12 @@ namespace ChestSystem.UI
 
         private void SubscribeToEvents()
         {
-           
+
         }
 
         private void UnSubscribeToEvents()
         {
-            
+
         }
 
         public void CreateSlot()
@@ -50,7 +53,11 @@ namespace ChestSystem.UI
             slotsUIController.AddSlot(slotsUIView);
         }
 
-     
+        public SlotsUIController GetSlots()
+        {
+            return slotsUIController;
+        }
+
 
     }
 }

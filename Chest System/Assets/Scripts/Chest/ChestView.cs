@@ -1,16 +1,24 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ChestView : MonoBehaviour
+namespace ChestSystem.Chest
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class ChestView : MonoBehaviour
     {
-        
-    }
+        private ChestController chestController;
+        [SerializeField] private Image chestImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void SetController(ChestController chestController)
+        {
+            this.chestController = chestController;
+            SetChestImage();
+        }
+
+        private void SetChestImage()
+        {
+            chestImage.sprite = chestController.GetChestImage(ChestScriptableObject.ChestType.Common);
+            chestImage.transform.localScale = new Vector2(.8f, .8f);
+        }
     }
 }

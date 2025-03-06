@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 7507430953133639601}
   - component: {fileID: 7629622349446639317}
   - component: {fileID: 7140846934763508137}
+  - component: {fileID: 6118409884431354177}
   m_Layer: 5
   m_Name: ChestSlot
   m_TagString: Untagged
@@ -197,6 +198,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6118409884431354177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2978001239498916184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b08cdbc7f41cb842ae8b70ff120b0ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addSlotButton: {fileID: 0}
 --- !u!1 &7595906253774326976
 GameObject:
   m_ObjectHideFlags: 0

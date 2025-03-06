@@ -4,11 +4,12 @@ namespace ChestSystem.Events
 {
     public class EventService
     {
-        public EventController OnGameStatedEvent;
-
+        public EventController OnGameStartedEvent;
+        public EventController OnSlotAddedEvent;
         public EventService()
         {
-            OnGameStatedEvent = new EventController();
+            OnSlotAddedEvent = new EventController();
+            OnGameStartedEvent = new EventController();
         }
     }
 }

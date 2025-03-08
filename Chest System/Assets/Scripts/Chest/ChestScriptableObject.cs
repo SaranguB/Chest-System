@@ -11,6 +11,7 @@ namespace ChestSystem.Chest
         public ChestType chestType;
         public ChestRewards chestRewards;
         public ChestTimer chestTimer;
+        public float chestGeneratingChance;
 
         [Serializable]
         public class ChestTimer

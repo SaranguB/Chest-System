@@ -10,12 +10,30 @@ namespace ChestSystem.Chest
         private ChestController chestController;
         private List<ChestScriptableObject> chestScriptableObject;
         private Dictionary<ChestScriptableObject.ChestType, Sprite> chestImages;
+        private Dictionary<ChestScriptableObject.ChestType, float> chestTypeChance;
         public ChestModel(ChestController chestController, List<ChestScriptableObject> chestScriptableObject)
         {
             this.chestController = chestController;
             this.chestScriptableObject = chestScriptableObject;
 
             InitializeChestImages();
+            InitializeChestTypeChance();
+        }
+
+        private void InitializeChestTypeChance()
+        {
+            chestTypeChance = new Dictionary<ChestScriptableObject.ChestType, float>();
+
+            foreach (var chestSO in chestScriptableObject)
+            {
+                if (!chestTypeChance.ContainsKey(chestSO.chestType))
+                {
+                    chestTypeChance[chestSO.chestType] = chestSO.chestGeneratingChance;
+                }
+            }
+
+
+
         }
 
         private void InitializeChestImages()
@@ -34,11 +52,16 @@ namespace ChestSystem.Chest
 
         public Sprite GetChestImage(ChestScriptableObject.ChestType chestType)
         {
-            if(chestImages.ContainsKey(chestType))
+            if (chestImages.ContainsKey(chestType))
             {
                 return chestImages[chestType];
             }
             return null;
+        }
+
+        public Dictionary<ChestScriptableObject.ChestType, float> GetChestTypeChance()
+        {
+            return chestTypeChance;
         }
     }
 }

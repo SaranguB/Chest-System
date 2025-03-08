@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5dbc4981cae3ce46917d4184b9fa752, type: 3}
   m_Name: RareChest
   m_EditorClassIdentifier: 
-  chestImage: {fileID: -218140749501768013, guid: e1b55c6fb89d20c4ba7dfddc4f1e59de, type: 3}
+  chestImage: {fileID: 7569667489990287543, guid: ea8f619d949938d4fb6ac1e9794f0633, type: 3}
   chestType: 1
   chestRewards:
     minCoin: 300
@@ -21,3 +21,4 @@ MonoBehaviour:
     maxGems: 40
   chestTimer:
     timeInMinutes: 30
+  chestGeneratingChance: 35

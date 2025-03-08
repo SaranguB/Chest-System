@@ -25,7 +25,7 @@ namespace ChestSystem.UI
             for (int i = 1; i <= initialSlots; i++)
                 CreateSlot();
 
-            generateChestButton.onClick.AddListener(GameService.Instance.chestService.GenerateChest);
+            generateChestButton.onClick.AddListener(()=> GameService.Instance.chestService.GenerateChest(GetSlots()));
             SubscribeToEvents();
 
         }

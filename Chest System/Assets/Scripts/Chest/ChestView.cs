@@ -17,8 +17,8 @@ namespace ChestSystem.Chest
 
         private void SetChestImage()
         {
-            chestImage.sprite = chestController.GetChestImage(ChestScriptableObject.ChestType.Common);
-            chestImage.transform.localScale = new Vector2(.8f, .8f);
+            chestImage.sprite = chestController.GetChestImage(chestController.GetRandomChestType());
+            chestImage.transform.localScale = new Vector2(.7f, .7f);
         }
     }
 }

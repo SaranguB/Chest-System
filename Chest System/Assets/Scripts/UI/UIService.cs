@@ -8,6 +8,9 @@ namespace ChestSystem.UI
 
     public class UIService : MonoBehaviour
     {
+        private UnlockSelectionUIController unlockSelectionUIController;
+        [SerializeField] private UnlockChestSelectionUIView unlockSelectionUIView;
+
         [Header("Add Chest Slot UI")]
         private SlotsUIController slotsUIController;
         [SerializeField] private GameObject chestSlotPrefab;
@@ -15,17 +18,19 @@ namespace ChestSystem.UI
         [SerializeField] private int initialSlots;
         [SerializeField] private Button addSlotButton;
 
+
         [SerializeField] private Button generateChestButton;
 
         private void Start()
         {
             addSlotButton.onClick.AddListener(CreateSlot);
             slotsUIController = new SlotsUIController();
+            unlockSelectionUIController = new UnlockSelectionUIController(unlockSelectionUIView);
 
             for (int i = 1; i <= initialSlots; i++)
                 CreateSlot();
 
-            generateChestButton.onClick.AddListener(()=> GameService.Instance.chestService.GenerateChest(GetSlots()));
+            generateChestButton.onClick.AddListener(()=> GameService.Instance.chestService.GenerateChest(GetSlots(), GetUnlockSlection()));
             SubscribeToEvents();
 
         }
@@ -56,6 +61,11 @@ namespace ChestSystem.UI
         public SlotsUIController GetSlots()
         {
             return slotsUIController;
+        }
+
+        private UnlockSelectionUIController GetUnlockSlection()
+        {
+            return unlockSelectionUIController;
         }
 
 

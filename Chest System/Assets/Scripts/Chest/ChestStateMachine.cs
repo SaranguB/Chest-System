@@ -9,18 +9,18 @@ namespace ChestSystem.Chest
 
         private Dictionary<ChestState, IState> states;
 
-        public ChestStateMachine()
+        public ChestStateMachine(ChestController chestController)
         {
-            CreateStates();
+            CreateStates(chestController);
         }
 
-        private void CreateStates()
+        private void CreateStates(ChestController chestController)
         {
             states = new Dictionary<ChestState, IState>()
             {
                 {ChestState.Locked, new LockedState()},
                 {ChestState.Unlocked, new UnlockedState() },
-                {ChestState.Unlocking, new UnlockedState() },
+                {ChestState.Unlocking, new UnlockingState(chestController) },
                 {ChestState.Collected, new CollectedState() }
             };
         }
@@ -37,5 +37,12 @@ namespace ChestSystem.Chest
             currentState = newState;
             currentState?.OnStateEnter();
         }
+
+        public void Update()
+        {
+            currentState?.Update();
+        }
+
+        public IState GetCurrentState() => currentState;
     }
 }

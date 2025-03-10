@@ -10,14 +10,10 @@ namespace ChestSystem.Chest
         public Sprite chestImage;
         public ChestType chestType;
         public ChestRewards chestRewards;
-        public ChestTimer chestTimer;
+        public float chestTimer;
         public float chestGeneratingChance;
 
-        [Serializable]
-        public class ChestTimer
-        {
-            public int timeInMinutes;
-        }
+   
 
         [Serializable]
         public class ChestRewards

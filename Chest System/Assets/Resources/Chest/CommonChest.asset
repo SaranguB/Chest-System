@@ -19,6 +19,5 @@ MonoBehaviour:
     maxCoin: 200
     minGems: 10
     maxGems: 20
-  chestTimer:
-    timeInMinutes: 15
+  chestTimer: 15
   chestGeneratingChance: 30

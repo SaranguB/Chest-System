@@ -15,24 +15,37 @@ namespace ChestSystem.Chest
         private ChestModel chestModel;
         private SlotsUIController slotUIController;
         private ChestStateMachine stateMachine;
-
+        private UnlockSelectionUIController unlockSelectionUIController;
 
         public ChestController(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab,
-            SlotsUIController slotUIController)
+            SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
         {
             this.slotUIController = slotUIController;
             this.chestScriptableObject = chestScriptableObject;
             this.chestPrefab = chestPrefab;
+            this.unlockSelectionUIController = unlockSelectionUIController;
 
             chestModel = new ChestModel(this, chestScriptableObject);
             GenerateChest();
             createStateMachine();
             stateMachine.ChangeState(ChestState.Locked);
+            SubscribeToEvent();
+        }
+
+
+        private void SubscribeToEvent()
+        {
+            GameService.Instance.eventService.OnTimerStartedEvent.AddListener(SetStateToUnlocking);
+        }
+
+        public void UnSubscribeToEvents()
+        {
+            GameService.Instance.eventService.OnTimerStartedEvent.RemoveListener(SetStateToUnlocking);
         }
 
         private void createStateMachine()
         {
-            stateMachine = new ChestStateMachine();
+            stateMachine = new ChestStateMachine(this);
         }
 
         private void GenerateChest()
@@ -76,10 +89,64 @@ namespace ChestSystem.Chest
 
                 if (randomvalue < cumilativeWeight)
                 {
+                    chestModel.SetCurrentChestType(entry.Key);
                     return entry.Key;
                 }
             }
             return ChestScriptableObject.ChestType.Common;
+        }
+
+        public void EnableUnlockSelection()
+        {
+            unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
+                chestModel.GetCurrentChestType().ToString(), this);
+        }
+        private int GetGemsRequiredToUnlockCount()
+        {
+            float timer = chestModel.GetChestTimer();
+
+            float gemsRequired = timer / 10f;
+
+            return (int)Math.Ceiling(gemsRequired);
+        }
+
+        public string FormatTime(float time)
+        {
+            float timeInSeconds = time;
+
+            int hours = (int)(timeInSeconds / 3600);
+
+            int minutes = (int)((timeInSeconds % 3600) / 60);
+
+            int seconds = (int)(timeInSeconds % 60);
+
+            return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+        }
+
+        public float GetTimeInSeconds()
+        {
+            return chestModel.GetChestTimer() * 60;
+        }
+
+        public void SetTimerText(float timeInSeconds)
+        {
+            chestView.SetTimerText(timeInSeconds);
+        }
+
+        public void UpdateState()
+        {
+            stateMachine.Update();
+        }
+
+        public IState CurrentChestState()
+        {
+            return stateMachine.GetCurrentState();
+        }
+
+        public void SetStateToUnlocking()
+        {
+            if (CurrentChestState() is not UnlockingState)
+                stateMachine.ChangeState(ChestState.Unlocking);
         }
     }
 }

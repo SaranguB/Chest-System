@@ -25,10 +25,10 @@ namespace ChestSystem.Chest
 
         }
 
-        public void GenerateChest(SlotsUIController slotUIController)
+        public void GenerateChest(SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
         {
             if (slotUIController.CheckAnySlotAvailble())
-                chestController = new ChestController(chestScriptableObject, chestPrefab, slotUIController);
+                chestController = new ChestController(chestScriptableObject, chestPrefab, slotUIController, unlockSelectionUIController);
 
         }
 

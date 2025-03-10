@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Colors:
     m_NormalColor: {r: 0.23921569, g: 0.47058824, b: 0.5764706, a: 0.6039216}
     m_HighlightedColor: {r: 0.8705883, g: 0.7607844, b: 0.18039216, a: 1}
-    m_PressedColor: {r: 0.2392157, g: 0.47058827, b: 0.5764706, a: 0.6039216}
-    m_SelectedColor: {r: 0.2392157, g: 0.47058827, b: 0.5764706, a: 0.6039216}
+    m_PressedColor: {r: 0.8705883, g: 0.7607844, b: 0.18039216, a: 1}
+    m_SelectedColor: {r: 0.8705883, g: 0.7607844, b: 0.18039216, a: 1}
     m_DisabledColor: {r: 0.2392157, g: 0.47058827, b: 0.5764706, a: 0.6039216}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chestImage: {fileID: 2446888517455799042}
+  timerText: {fileID: 5978522538552499211}
 --- !u!1 &6339660353032472610
 GameObject:
   m_ObjectHideFlags: 0

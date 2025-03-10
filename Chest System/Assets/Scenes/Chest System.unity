@@ -847,7 +847,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1876,6 +1876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4412a1ee95d3455499a9930cb8d14bd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfGemsText: {fileID: 1426297359}
+  numberOfCoinsText: {fileID: 451125014}
 --- !u!1 &927481222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,6 +2902,7 @@ MonoBehaviour:
   chestTypeText: {fileID: 1745563783}
   closeButton: {fileID: 1961711627}
   startTimerButton: {fileID: 927481224}
+  isCountingStarted: 0
 --- !u!1 &1737517616
 GameObject:
   m_ObjectHideFlags: 0

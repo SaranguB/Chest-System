@@ -12,6 +12,7 @@ namespace ChestSystem.Chest
         private Dictionary<ChestScriptableObject.ChestType, Sprite> chestImages;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTypeChance;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTimer;
+        private float remainingTime;
 
         private ChestScriptableObject.ChestType currentChestType;
         public ChestModel(ChestController chestController, List<ChestScriptableObject> chestScriptableObject)
@@ -82,7 +83,7 @@ namespace ChestSystem.Chest
 
         public float GetChestTimer()
         {
-            if(chestTimer.ContainsKey(currentChestType))
+            if (chestTimer.ContainsKey(currentChestType))
             {
                 return chestTimer[currentChestType];
             }
@@ -98,5 +99,13 @@ namespace ChestSystem.Chest
             return currentChestType;
         }
 
+        public void SetRemainingTime(float time)
+        {
+            remainingTime = time;
+        }
+        public float GetRemainingTime()
+        {
+            return remainingTime;
+        }
     }
 }

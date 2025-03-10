@@ -16,7 +16,7 @@ namespace ChestSystem.Chest
         private SlotsUIController slotUIController;
         private ChestStateMachine stateMachine;
         private UnlockSelectionUIController unlockSelectionUIController;
-
+        public bool isCountingStarted = false;
         public ChestController(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab,
             SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
         {
@@ -35,12 +35,12 @@ namespace ChestSystem.Chest
 
         private void SubscribeToEvent()
         {
-            GameService.Instance.eventService.OnTimerStartedEvent.AddListener(SetStateToUnlocking);
+
         }
 
         public void UnSubscribeToEvents()
         {
-            GameService.Instance.eventService.OnTimerStartedEvent.RemoveListener(SetStateToUnlocking);
+
         }
 
         private void createStateMachine()
@@ -90,6 +90,7 @@ namespace ChestSystem.Chest
                 if (randomvalue < cumilativeWeight)
                 {
                     chestModel.SetCurrentChestType(entry.Key);
+                    chestModel.SetRemainingTime(chestModel.GetChestTimer());
                     return entry.Key;
                 }
             }
@@ -101,9 +102,10 @@ namespace ChestSystem.Chest
             unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
                 chestModel.GetCurrentChestType().ToString(), this);
         }
+
         private int GetGemsRequiredToUnlockCount()
         {
-            float timer = chestModel.GetChestTimer();
+            float timer = chestModel.GetRemainingTime();
 
             float gemsRequired = timer / 10f;
 
@@ -122,10 +124,14 @@ namespace ChestSystem.Chest
 
             return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
         }
-
-        public float GetTimeInSeconds()
+        public void SetTimerText()
         {
-            return chestModel.GetChestTimer() * 60;
+            chestView.SetTimerText(GetRemainingTimeInSeconds());
+        }
+
+        public float GetRemainingTimeInSeconds()
+        {
+            return chestModel.GetRemainingTime() * 60;
         }
 
         public void SetTimerText(float timeInSeconds)
@@ -146,7 +152,22 @@ namespace ChestSystem.Chest
         public void SetStateToUnlocking()
         {
             if (CurrentChestState() is not UnlockingState)
+            {
                 stateMachine.ChangeState(ChestState.Unlocking);
+                isCountingStarted = true;
+            }
+        }
+
+    
+
+        public void SetChestStateText(string state)
+        {
+            chestView.SetChestStateText(state);
+        }
+
+        public void SetRemainingTime(float time)
+        {
+            chestModel.SetRemainingTime(time);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ChestSystem.Chest
         [SerializeField] private Image chestImage;
         private Button chestButton;
         [SerializeField]private TextMeshProUGUI timerText;
-
+        [SerializeField] private TextMeshProUGUI chestStatetext;
         private void Start()
         {
             chestButton = GetComponent<Button>();
@@ -37,7 +37,6 @@ namespace ChestSystem.Chest
         {
             this.chestController = chestController;
             SetChestImage();
-            SetTimerText(chestController.GetTimeInSeconds());
         }
 
         private void SetChestImage()
@@ -49,6 +48,11 @@ namespace ChestSystem.Chest
         public void SetTimerText(float timeInSeconds)
         {
             timerText.text = chestController.FormatTime(timeInSeconds);
+        }
+
+        public void SetChestStateText(string state)
+        {
+            chestStatetext.text = state;
         }
     }
 }

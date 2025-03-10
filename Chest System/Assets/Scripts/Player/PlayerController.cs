@@ -8,7 +8,9 @@ namespace ChestSystem.Player
         public PlayerController(PlayerView playerView)
         {
             this.playerView = playerView;
-            playerModel = new PlayerModel();
+            this.playerModel = new PlayerModel();
+
+            this.playerView.SetController(this);
         }
 
         public void SetGemsCount(int count) => playerModel.SetGemsCount(count);

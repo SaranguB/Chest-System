@@ -14,8 +14,10 @@ namespace ChestSystem.UI
 
         public void SetUnlockChestSelection(int gemsCount, string chestType, ChestController chestController)
         {
-            unlockSelectionUIView.SetUnlockChestSelection(gemsCount, chestType);
             currentChestController = chestController;
+
+            unlockSelectionUIView.SetUnlockChestSelection(gemsCount, chestType);
+
             unlockSelectionUIView.GetstartTimerButton().onClick.AddListener(SetTimer);
         }
 

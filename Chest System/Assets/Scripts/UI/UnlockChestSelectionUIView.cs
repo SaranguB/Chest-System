@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace ChestSystem.UI
         [SerializeField] private TextMeshProUGUI chestTypeText;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button startTimerButton;
+        public bool isCountingStarted = false;
 
         private void Start()
         {
@@ -32,6 +34,18 @@ namespace ChestSystem.UI
             canvasGroup.alpha = 1;
             canvasGroup.blocksRaycasts = true;
             canvasGroup.interactable = true;
+
+           
+        }
+
+        private void DisableStartTimerButton()
+        {
+            startTimerButton.interactable = false;
+
+            Image buttonImage = startTimerButton.image;
+            Color color = buttonImage.color;
+            color.a = 0.2f; 
+            buttonImage.color = color;
         }
 
         public void DisableUnlockSelection()

@@ -7,15 +7,19 @@ namespace ChestSystem.Chest
     public class UnlockingState : IState
     {
         private float remainingTime;
-        ChestController chestController;
-        public UnlockingState(ChestController chestController)
+        private ChestController chestController;
+        private ChestStateMachine chestStateMachine;
+
+        public UnlockingState(ChestController chestController, ChestStateMachine chestStateMachine)
         {
             this.chestController = chestController;
+            this.chestStateMachine = chestStateMachine;
         }
 
         public void OnStateEnter()
         {
-            remainingTime = chestController.GetTimeInSeconds();
+            chestController.SetChestStateText("Unlocking");
+            remainingTime = chestController.GetRemainingTimeInSeconds();
         }
 
         public void Update()
@@ -24,7 +28,15 @@ namespace ChestSystem.Chest
             {
                 remainingTime -= Time.deltaTime;
 
+                chestController.SetRemainingTime(remainingTime / 60);
                 chestController.SetTimerText(remainingTime);
+            }
+            else if(remainingTime <= 0)
+            {
+                remainingTime = 0;
+                chestController.SetRemainingTime(remainingTime / 60);
+                chestController.SetTimerText(remainingTime);
+                chestStateMachine.ChangeState(ChestState.Unlocked);
             }
         }
 

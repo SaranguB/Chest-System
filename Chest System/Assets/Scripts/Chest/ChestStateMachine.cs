@@ -18,10 +18,10 @@ namespace ChestSystem.Chest
         {
             states = new Dictionary<ChestState, IState>()
             {
-                {ChestState.Locked, new LockedState()},
-                {ChestState.Unlocked, new UnlockedState() },
-                {ChestState.Unlocking, new UnlockingState(chestController) },
-                {ChestState.Collected, new CollectedState() }
+                {ChestState.Locked, new LockedState(chestController, this)},
+                {ChestState.Unlocked, new UnlockedState(chestController, this) },
+                {ChestState.Unlocking, new UnlockingState(chestController, this) },
+                {ChestState.Collected, new CollectedState(this) }
             };
         }
 

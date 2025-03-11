@@ -13,7 +13,12 @@ namespace ChestSystem.Player
             this.playerView.SetController(this);
         }
 
-        public void SetGemsCount(int count) => playerModel.SetGemsCount(count);
+        public void SetGemsCount(int count)
+        {
+            playerModel.SetGemsCount(count);
+            playerView.DisplayGemsCount();
+        }
+
         public int GetGemsCount() => playerModel.GetGemsCount();
 
         public void SetCoinCount(int count) => playerModel.SetCoinCount(count);

@@ -10,7 +10,7 @@ namespace ChestSystem.Chest
         private ChestController chestController;
         [SerializeField] private Image chestImage;
         private Button chestButton;
-        [SerializeField]private TextMeshProUGUI timerText;
+        [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI chestStatetext;
         private void Start()
         {
@@ -20,9 +20,9 @@ namespace ChestSystem.Chest
 
         private void Update()
         {
-            if(chestController!=null)
+            if (chestController != null)
             {
-                if(chestController.CurrentChestState() is UnlockingState)
+                if (chestController.CurrentChestState() is UnlockingState)
                 {
                     chestController.UpdateState();
                 }
@@ -47,12 +47,20 @@ namespace ChestSystem.Chest
 
         public void SetTimerText(float timeInSeconds)
         {
+            if (!timerText.gameObject.activeInHierarchy)
+                timerText.gameObject.SetActive(true);
+
             timerText.text = chestController.FormatTime(timeInSeconds);
         }
 
         public void SetChestStateText(string state)
         {
             chestStatetext.text = state;
+        }
+
+        public void DisableTimerText()
+        {
+            timerText.gameObject.SetActive(false);
         }
     }
 }

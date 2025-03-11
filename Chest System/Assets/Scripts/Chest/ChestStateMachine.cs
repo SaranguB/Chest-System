@@ -7,8 +7,8 @@ namespace ChestSystem.Chest
     {
         private IState currentState;
 
-        private Dictionary<ChestState, IState> states;
-
+        public Dictionary<ChestState, IState> states;
+        private ChestState currentChestStateEnum;
         public ChestStateMachine(ChestController chestController)
         {
             CreateStates(chestController);
@@ -44,5 +44,10 @@ namespace ChestSystem.Chest
         }
 
         public IState GetCurrentState() => currentState;
+
+        public Dictionary<ChestState, IState> GetStates()
+        {
+            return states;
+        }
     }
 }

@@ -1,4 +1,5 @@
 using ChestSystem.Chest;
+using System;
 using UnityEngine;
 
 namespace ChestSystem.UI
@@ -12,13 +13,34 @@ namespace ChestSystem.UI
             this.unlockSelectionUIView = unlockSelectionUIView;
         }
 
-        public void SetUnlockChestSelection(int gemsCount, string chestType, ChestController chestController)
+        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType, ChestController chestController)
         {
             currentChestController = chestController;
 
-            unlockSelectionUIView.SetUnlockChestSelection(gemsCount, chestType);
+            unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType, chestController.CurrentChestState());
+
+            unlockSelectionUIView.GetstartTimerButton().onClick.RemoveAllListeners();
+            unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.RemoveAllListeners();
+            unlockSelectionUIView.GetUndoButton().onClick.RemoveAllListeners();
 
             unlockSelectionUIView.GetstartTimerButton().onClick.AddListener(SetTimer);
+
+            unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.AddListener(SetUnlockChestWithGemsButton);
+            unlockSelectionUIView.GetUndoButton().onClick.AddListener(SetUndoButton);
+
+      
+        }
+
+        private void SetUndoButton()
+        {
+            currentChestController.UndoUnlockChestWithGems();
+            DisableUnlockSelection();
+        }
+
+        private void SetUnlockChestWithGemsButton()
+        {
+            currentChestController.UnlockChestWithGems();
+            DisableUnlockSelection();
         }
 
         public void DisableUnlockSelection()
@@ -28,8 +50,8 @@ namespace ChestSystem.UI
 
         public void SetTimer()
         {
-            currentChestController.SetStateToUnlocking();
-            unlockSelectionUIView.DisableUnlockSelection();
+            currentChestController.ChangeState(ChestState.Unlocking);
+            DisableUnlockSelection();
         }
     }
 }

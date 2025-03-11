@@ -1,7 +1,10 @@
+using ChestSystem.Chest;
+using ChestSystem.StateMachine;
 using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Utilis;
 
 
 namespace ChestSystem.UI
@@ -13,46 +16,60 @@ namespace ChestSystem.UI
         [SerializeField] private TextMeshProUGUI chestTypeText;
         [SerializeField] private Button closeButton;
         [SerializeField] private Button startTimerButton;
+        [SerializeField] private Button unlockChestWithGemsButton;
+        [SerializeField] private Button undoButton;
+        [SerializeField] private Button collectButton;
+
         public bool isCountingStarted = false;
 
         private void Start()
         {
             canvasGroup = gameObject.GetComponent<CanvasGroup>();
             closeButton.onClick.AddListener(DisableUnlockSelection);
-
         }
 
-        public void SetUnlockChestSelection(int gemsCount, string chestType)
+        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType, IState currentChestState)
         {
             EnableUnlockSelection();
-            SetGemsText(gemsCount);
+            SetGemsText(gemsRequiredCount);
             SetChestTypeText(chestType);
+            SetButtons(currentChestState);
+        }
+
+        private void SetButtons(IState currentChestState)
+        {
+            startTimerButton.gameObject.SetActive(false);
+            unlockChestWithGemsButton.gameObject.SetActive(false);
+            undoButton.gameObject.SetActive(false);
+            collectButton.gameObject.SetActive(false);
+
+            switch (currentChestState)
+            {
+                case LockedState:
+                    startTimerButton.gameObject.SetActive(true);
+                    unlockChestWithGemsButton.gameObject.SetActive(true);
+                    break;
+
+                case UnlockingState:
+                    unlockChestWithGemsButton.gameObject.SetActive(true);
+                    break;
+
+                case UnlockedState:
+                    undoButton.gameObject.SetActive(true);
+                    collectButton.gameObject.SetActive(true);
+                    break;
+                    
+            }
         }
 
         private void EnableUnlockSelection()
         {
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
-            canvasGroup.interactable = true;
-
-           
-        }
-
-        private void DisableStartTimerButton()
-        {
-            startTimerButton.interactable = false;
-
-            Image buttonImage = startTimerButton.image;
-            Color color = buttonImage.color;
-            color.a = 0.2f; 
-            buttonImage.color = color;
+            CanvasGroupExtension.Show(canvasGroup);
         }
 
         public void DisableUnlockSelection()
         {
-            canvasGroup.alpha = 0;
-            canvasGroup.blocksRaycasts = false;
-            canvasGroup.interactable = false;
+            CanvasGroupExtension.Hide(canvasGroup);
         }
 
         private void SetGemsText(int value)
@@ -62,12 +79,27 @@ namespace ChestSystem.UI
 
         private void SetChestTypeText(string value)
         {
-            chestTypeText.text = value;
+            chestTypeText.text = value + " Chest";
         }
 
         public Button GetstartTimerButton()
         {
             return startTimerButton;
+        }
+
+        public Button GetUnlockChestWithGemsButton()
+        {
+            return unlockChestWithGemsButton;
+        }
+
+        public Button GetUndoButton()
+        {
+            return undoButton;
+        }
+
+        public Button GetCollectButton()
+        {
+            return collectButton;
         }
     }
 }

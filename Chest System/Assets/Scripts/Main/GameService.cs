@@ -1,4 +1,6 @@
+using ChestSystem.Actions;
 using ChestSystem.Chest;
+using ChestSystem.Commands;
 using ChestSystem.Events;
 using ChestSystem.Player;
 using ChestSystem.UI;
@@ -9,9 +11,12 @@ namespace ChestSystem
 {
     public class GameService : GenericMonoSingelton<GameService>
     {
-        public ChestService chestService;
-        public UIService uiService;
-        public PlayerService playerService;
+        public ChestService chestService { get; private set; }
+        public UIService uiService { get; private set; }
+        public PlayerService playerService { get; private set; }
+        public ActionService actionService { get; private set; }
+        public EventService eventService { get; private set; }
+        public CommandInvoker commandInvoker { get; private set; }
 
         [Header("Chest")]
         [SerializeField] private List<ChestScriptableObject> chestScriptableObject;
@@ -19,14 +24,16 @@ namespace ChestSystem
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
-        public EventService eventService { get; private set; }
+       
 
         protected override void Awake()
         {
             base.Awake();
-            playerService = new PlayerService(playerView);
-            chestService = new ChestService(chestScriptableObject, chestPrefab);
             eventService = new EventService();
+            playerService = new PlayerService(playerView);
+            actionService = new ActionService();
+            commandInvoker = new CommandInvoker(playerService);
+            chestService = new ChestService(chestScriptableObject, chestPrefab);
         }
     }
 }

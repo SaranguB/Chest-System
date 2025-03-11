@@ -1,9 +1,9 @@
+using ChestSystem.Commands;
 using ChestSystem.StateMachine;
 using ChestSystem.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace ChestSystem.Chest
 {
@@ -17,6 +17,7 @@ namespace ChestSystem.Chest
         private ChestStateMachine stateMachine;
         private UnlockSelectionUIController unlockSelectionUIController;
         public bool isCountingStarted = false;
+        private int GemsRequiredToUnlockChest;
         public ChestController(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab,
             SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
         {
@@ -97,19 +98,33 @@ namespace ChestSystem.Chest
             return ChestScriptableObject.ChestType.Common;
         }
 
+        public void UnlockChestWithGems()
+        {
+            ICommand openChestWithGemsCommand = new OpenChestWithGemsCommand();
+
+            GameService.Instance.commandInvoker.ProcessCommands(this, openChestWithGemsCommand);
+        }
+
+        public void UndoUnlockChestWithGems()
+        {
+            GameService.Instance.commandInvoker.Undo();
+        }
+
         public void EnableUnlockSelection()
         {
             unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
                 chestModel.GetCurrentChestType().ToString(), this);
         }
 
-        private int GetGemsRequiredToUnlockCount()
+        public int GetGemsRequiredToUnlockCount()
         {
             float timer = chestModel.GetRemainingTime();
 
             float gemsRequired = timer / 10f;
 
-            return (int)Math.Ceiling(gemsRequired);
+            GemsRequiredToUnlockChest = (int)Math.Ceiling(gemsRequired);
+
+            return GemsRequiredToUnlockChest;
         }
 
         public string FormatTime(float time)
@@ -149,16 +164,14 @@ namespace ChestSystem.Chest
             return stateMachine.GetCurrentState();
         }
 
-        public void SetStateToUnlocking()
+        public void ChangeState(ChestState state)
         {
-            if (CurrentChestState() is not UnlockingState)
+
+            if (CurrentChestState() != stateMachine.GetStates()[state])
             {
-                stateMachine.ChangeState(ChestState.Unlocking);
-                isCountingStarted = true;
+                stateMachine.ChangeState(state);
             }
         }
-
-    
 
         public void SetChestStateText(string state)
         {
@@ -169,5 +182,12 @@ namespace ChestSystem.Chest
         {
             chestModel.SetRemainingTime(time);
         }
+
+        public void DisableTimerText()
+        {
+            chestView.DisableTimerText();
+        }
+
+
     }
 }

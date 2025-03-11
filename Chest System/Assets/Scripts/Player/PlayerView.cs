@@ -17,12 +17,12 @@ namespace ChestSystem.Player
             DisplayCoinsCount();
         }
 
-        private void DisplayGemsCount()
+        public void DisplayGemsCount()
         {
             numberOfGemsText.text = playerController.GetGemsCount().ToString();
         }  
         
-        private void DisplayCoinsCount()
+        public void DisplayCoinsCount()
         {
             numberOfCoinsText.text = playerController.GetCoinCount().ToString();
         }

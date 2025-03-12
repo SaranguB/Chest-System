@@ -15,13 +15,13 @@ namespace ChestSystem.Chest
         private ChestModel chestModel;
         private SlotsUIController slotUIController;
         private ChestStateMachine stateMachine;
-        private UnlockChesSelectionUIController unlockSelectionUIController;
+        private UnlockChestSelectionUIController unlockSelectionUIController;
         public bool isCountingStarted = false;
         private int GemsRequiredToUnlockChest;
         private SlotsUIView currentSlot;
 
         public ChestController(List<ChestScriptableObject> chestScriptableObject, ChestView chestView,
-            SlotsUIController slotUIController, UnlockChesSelectionUIController unlockSelectionUIController)
+            SlotsUIController slotUIController, UnlockChestSelectionUIController unlockSelectionUIController)
         {
             this.slotUIController = slotUIController;
             this.chestScriptableObject = chestScriptableObject;

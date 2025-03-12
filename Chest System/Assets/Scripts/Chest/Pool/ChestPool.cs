@@ -7,7 +7,6 @@ namespace ChestSystem.Chest
     public class ChestPool
     {
         private List<PooledChest> pooledChests = new List<PooledChest>();
-
         private List<ChestScriptableObject> chestScriptableObject;
         private ChestView chestPrefab;
 
@@ -18,7 +17,7 @@ namespace ChestSystem.Chest
         }
 
         public ChestController GetChest(SlotsUIController slotUIController,
-            UnlockChesSelectionUIController unlockSelectionUIController)
+            UnlockChestSelectionUIController unlockSelectionUIController)
         {
             if (pooledChests.Count > 0)
             {
@@ -34,15 +33,13 @@ namespace ChestSystem.Chest
         }
 
         private ChestController CreateChest(SlotsUIController slotUIController,
-            UnlockChesSelectionUIController unlockSelectionUIController)
+            UnlockChestSelectionUIController unlockSelectionUIController)
         {
             PooledChest pooledChest = new PooledChest();
-
             ChestView chestView = Object.Instantiate(chestPrefab);
             pooledChest.chest = new ChestController(chestScriptableObject, chestView,
                 slotUIController, unlockSelectionUIController);
             pooledChest.isUsed = true;
-
             pooledChests.Add(pooledChest);
 
             return pooledChest.chest;

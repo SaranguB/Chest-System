@@ -18,16 +18,14 @@ namespace ChestSystem.Chest
         {
             chestController.SetChestStateText("Collected");
             chestController.EnableUnlockSelection();
-
         }
+
         public void Update()
         {
-
         }
 
         public void OnStateExit()
         {
-
         }
     }
 }

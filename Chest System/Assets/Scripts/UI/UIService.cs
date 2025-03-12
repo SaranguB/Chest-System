@@ -8,8 +8,10 @@ namespace ChestSystem.UI
 
     public class UIService : MonoBehaviour
     {
-        private UnlockChesSelectionUIController unlockSelectionUIController;
+        private UnlockChestSelectionUIController unlockSelectionUIController;
         [SerializeField] private UnlockChestSelectionUIView unlockSelectionUIView;
+
+        [SerializeField] private GameObject notEnoughGemPopUp;
 
         [Header("Add Chest Slot UI")]
         private SlotsUIController slotsUIController;
@@ -25,7 +27,7 @@ namespace ChestSystem.UI
         {
             addSlotButton.onClick.AddListener(CreateSlot);
             slotsUIController = new SlotsUIController();
-            unlockSelectionUIController = new UnlockChesSelectionUIController(unlockSelectionUIView);
+            unlockSelectionUIController = new UnlockChestSelectionUIController(unlockSelectionUIView);
 
             for (int i = 1; i <= initialSlots; i++)
                 CreateSlot();
@@ -42,7 +44,7 @@ namespace ChestSystem.UI
 
         private void SubscribeToEvents()
         {
-
+            GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.AddListener(EnableNotEnougGemPopUp);
         }
 
         private void UnSubscribeToEvents()
@@ -63,11 +65,21 @@ namespace ChestSystem.UI
             return slotsUIController;
         }
 
-        private UnlockChesSelectionUIController GetUnlockSlection()
+        private UnlockChestSelectionUIController GetUnlockSlection()
         {
             return unlockSelectionUIController;
         }
 
+        public void EnableNotEnougGemPopUp()
+        {
+            notEnoughGemPopUp.SetActive(true);
+        }
+
+        public void DisableNotEnougGemPopUp()
+        {
+            notEnoughGemPopUp.SetActive(false);
+
+        }
 
     }
 }

@@ -22,7 +22,7 @@ namespace ChestSystem.Chest
 
         }
 
-        public void GenerateChest(SlotsUIController slotUIController, UnlockChesSelectionUIController unlockSelectionUIController)
+        public void GenerateChest(SlotsUIController slotUIController, UnlockChestSelectionUIController unlockSelectionUIController)
         {
             if (slotUIController.CheckAnySlotAvailble())
             {

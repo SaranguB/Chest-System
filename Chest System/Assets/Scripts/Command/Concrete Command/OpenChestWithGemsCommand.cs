@@ -26,8 +26,12 @@ namespace ChestSystem.Commands
                 this.chestController.DisableTimerText();
                 playerController.SetGemsCount(remainingGems);
             }
+            else
+            {
+                GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.InvokeEvent();
+            }
 
-            GameService.Instance.actionService.GetOpenChestWithGemsAction().PerformAction();
+                GameService.Instance.actionService.GetOpenChestWithGemsAction().PerformAction();
         }
 
         public void Undo()

@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace ChestSystem.UI
 {
-    public class UnlockChesSelectionUIController
+    public class UnlockChestSelectionUIController
     {
         private UnlockChestSelectionUIView unlockSelectionUIView;
         private ChestController currentChestController;
         private SlotsUIController currentSlotController;
         private SlotsUIView currentSlot;
 
-        public UnlockChesSelectionUIController(UnlockChestSelectionUIView unlockChestSelectionUIView)
+        public UnlockChestSelectionUIController(UnlockChestSelectionUIView unlockChestSelectionUIView)
         {
             this.unlockSelectionUIView = unlockChestSelectionUIView;
         }

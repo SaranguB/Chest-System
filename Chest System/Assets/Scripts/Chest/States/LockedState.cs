@@ -19,8 +19,7 @@ namespace ChestSystem.Chest
         }
 
         public void Update()
-        {
-
+        { 
         }
 
         public void OnStateExit()

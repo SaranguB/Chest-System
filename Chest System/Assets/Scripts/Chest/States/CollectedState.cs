@@ -6,14 +6,17 @@ namespace ChestSystem.Chest
     public class CollectedState : IState
     {
         private ChestStateMachine chestStateMachine;
+        private ChestController chestController;
 
-        public CollectedState(ChestStateMachine chestStateMachine)
+        public CollectedState(ChestController chestController, ChestStateMachine chestStateMachine)
         {
+            this.chestController = chestController;
             this.chestStateMachine = chestStateMachine;
         }
 
         public void OnStateEnter()
         {
+            chestController.SetChestStateText("Collected");
 
         }
         public void Update()

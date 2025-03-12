@@ -9,14 +9,11 @@ namespace ChestSystem.Chest
     {
         private ChestController chestController;
 
-        private List<ChestScriptableObject> chestScriptableObject;
-        private GameObject chestPrefab;
-
+        private ChestPool chestPool;
+        private bool isChestUnlocking = false;
         public ChestService(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab)
         {
-            this.chestScriptableObject = chestScriptableObject;
-            this.chestPrefab = chestPrefab;
-
+            chestPool = new ChestPool(chestScriptableObject, chestPrefab);
             SubscribeToEvents();
         }
 
@@ -28,13 +25,22 @@ namespace ChestSystem.Chest
         public void GenerateChest(SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
         {
             if (slotUIController.CheckAnySlotAvailble())
-                chestController = new ChestController(chestScriptableObject, chestPrefab, slotUIController, unlockSelectionUIController);
-
+                chestController = chestPool.GetChest(slotUIController, unlockSelectionUIController);
         }
 
         public ChestController GetChest()
         {
             return chestController;
+        }
+
+        public void SetIsChestUnlocking(bool value)
+        {
+            isChestUnlocking = value;
+        }
+
+        public bool GetIsChestUnlocking()
+        {
+            return isChestUnlocking;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace ChestSystem.Chest
                 {ChestState.Locked, new LockedState(chestController, this)},
                 {ChestState.Unlocked, new UnlockedState(chestController, this) },
                 {ChestState.Unlocking, new UnlockingState(chestController, this) },
-                {ChestState.Collected, new CollectedState(this) }
+                {ChestState.Collected, new CollectedState(chestController, this) }
             };
         }
 

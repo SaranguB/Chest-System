@@ -19,8 +19,8 @@ namespace ChestSystem.UI
         [SerializeField] private Button unlockChestWithGemsButton;
         [SerializeField] private Button undoButton;
         [SerializeField] private Button collectButton;
-
-        public bool isCountingStarted = false;
+        [SerializeField] private GameObject displayCollectedValues;
+        [SerializeField] private GameObject checkAlreadyUnlockingPanel;
 
         private void Start()
         {
@@ -42,6 +42,7 @@ namespace ChestSystem.UI
             unlockChestWithGemsButton.gameObject.SetActive(false);
             undoButton.gameObject.SetActive(false);
             collectButton.gameObject.SetActive(false);
+            displayCollectedValues.gameObject.SetActive(false);
 
             switch (currentChestState)
             {
@@ -58,7 +59,11 @@ namespace ChestSystem.UI
                     undoButton.gameObject.SetActive(true);
                     collectButton.gameObject.SetActive(true);
                     break;
-                    
+
+                case CollectedState:
+                    displayCollectedValues.gameObject.SetActive(true);
+                    break;
+
             }
         }
 

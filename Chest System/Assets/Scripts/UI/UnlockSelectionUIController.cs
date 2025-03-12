@@ -18,17 +18,31 @@ namespace ChestSystem.UI
             currentChestController = chestController;
 
             unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType, chestController.CurrentChestState());
+            RemoveListeners();
+            AdddListeners();
 
+        }
+
+        private void RemoveListeners()
+        {
             unlockSelectionUIView.GetstartTimerButton().onClick.RemoveAllListeners();
             unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.RemoveAllListeners();
             unlockSelectionUIView.GetUndoButton().onClick.RemoveAllListeners();
+            unlockSelectionUIView.GetCollectButton().onClick.RemoveAllListeners();
+        }
 
+        private void AdddListeners()
+        {
             unlockSelectionUIView.GetstartTimerButton().onClick.AddListener(SetTimer);
-
             unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.AddListener(SetUnlockChestWithGemsButton);
             unlockSelectionUIView.GetUndoButton().onClick.AddListener(SetUndoButton);
+            unlockSelectionUIView.GetCollectButton().onClick.AddListener(SetCollectButton);
+        }
 
-      
+        private void SetCollectButton()
+        {
+            currentChestController.ChangeState(ChestState.Collected);
+            DisableUnlockSelection();
         }
 
         private void SetUndoButton()
@@ -50,8 +64,11 @@ namespace ChestSystem.UI
 
         public void SetTimer()
         {
-            currentChestController.ChangeState(ChestState.Unlocking);
-            DisableUnlockSelection();
+            if (!GameService.Instance.chestService.GetIsChestUnlocking())
+            {
+                currentChestController.ChangeState(ChestState.Unlocking);
+                DisableUnlockSelection();
+            }
         }
     }
 }

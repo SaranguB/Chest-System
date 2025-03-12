@@ -25,7 +25,6 @@ namespace ChestSystem.Chest
 
         public void OnStateExit()
         {
-
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ChestSystem.Commands
 {
     public class CommandInvoker
     {
-        private Stack<ICommand> commandRegistry = new Stack<ICommand>();
+        private Dictionary<ChestController, Stack<ICommand>> chestCommandHistory = new Dictionary<ChestController, Stack<ICommand>>();
         private PlayerService playerService;
 
         public CommandInvoker(PlayerService playerService)
@@ -17,18 +17,27 @@ namespace ChestSystem.Commands
         public void ProcessCommands(ChestController chestController, ICommand commandToProcess)
         {
             ExecuteCommand(chestController, commandToProcess);
-            RegisterCommand(commandToProcess);
+            RegisterCommand(chestController, commandToProcess);
         }
 
-        private void ExecuteCommand(ChestController chestController, ICommand commandToProcess) => 
-            commandToProcess.Execute(playerService, chestController);
- 
-        private void RegisterCommand(ICommand commandToProcess) => commandRegistry.Push(commandToProcess);
+        private void ExecuteCommand(ChestController chestController, ICommand commandToProcess)
+            => commandToProcess.Execute(playerService, chestController);
 
-        public void Undo()
+        private void RegisterCommand(ChestController chestController, ICommand commandToProcess)
         {
-            if (commandRegistry.Count != 0)
-                commandRegistry.Pop().Undo();
+            if (!chestCommandHistory.ContainsKey(chestController))
+            {
+                chestCommandHistory[chestController] = new Stack<ICommand>();
+            }
+            chestCommandHistory[chestController].Push(commandToProcess);
+        }
+
+        public void Undo(ChestController chestController)
+        {
+            if (chestCommandHistory.ContainsKey(chestController) && chestCommandHistory[chestController].Count > 0)
+            {
+                chestCommandHistory[chestController].Pop().Undo();
+            }
         }
     }
 }

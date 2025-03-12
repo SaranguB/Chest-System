@@ -82,7 +82,7 @@ namespace ChestSystem.Chest
             GameService.Instance.commandInvoker.ProcessCommands(this, openChestWithGemsCommand);
         }
 
-        public void UndoUnlockChestWithGems() => GameService.Instance.commandInvoker.Undo();
+        public void UndoUnlockChestWithGems() => GameService.Instance.commandInvoker.Undo(this);
 
         public void EnableUnlockSelection()
         {

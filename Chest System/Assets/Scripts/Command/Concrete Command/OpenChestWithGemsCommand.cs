@@ -1,7 +1,5 @@
-
 using ChestSystem.Chest;
 using ChestSystem.Player;
-using UnityEngine;
 
 namespace ChestSystem.Commands
 {
@@ -25,19 +23,17 @@ namespace ChestSystem.Commands
                 this.chestController.ChangeState(ChestState.Unlocked);
                 this.chestController.DisableTimerText();
                 playerController.SetGemsCount(remainingGems);
+                GameService.Instance.actionService.GetOpenChestWithGemsAction().PerformAction();
             }
             else
             {
                 GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.InvokeEvent();
             }
-
-                GameService.Instance.actionService.GetOpenChestWithGemsAction().PerformAction();
         }
 
         public void Undo()
         {
             playerController.SetGemsCount(gemsCount);
-
             chestController.ChangeState(ChestState.Locked);
             chestController.SetTimerText();
         }

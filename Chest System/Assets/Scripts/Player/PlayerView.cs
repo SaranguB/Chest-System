@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -18,18 +17,12 @@ namespace ChestSystem.Player
         }
 
         private void OnDisable()
-        {
-            playerController.Dispose();
-        }
+            => playerController.Dispose();
 
         public void DisplayGemsCount()
-        {
-            numberOfGemsText.text = playerController.GetGemsCount().ToString();
-        }  
+            => numberOfGemsText.text = playerController.GetGemsCount().ToString();
         
-        public void DisplayCoinsCount()
-        {
-            numberOfCoinsText.text = playerController.GetCoinCount().ToString();
-        }
+        public void DisplayCoinsCount() 
+            => numberOfCoinsText.text = playerController.GetCoinCount().ToString();
     }
 }

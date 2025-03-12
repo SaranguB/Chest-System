@@ -1,5 +1,3 @@
-
-
 namespace ChestSystem.Player
 {
     public class PlayerModel
@@ -15,11 +13,17 @@ namespace ChestSystem.Player
             coinCount = initialPlayerCoinCount;
         }
 
-        public void SetGemsCount(int count) => gemsCount = count;
-        public int GetGemsCount() => gemsCount;
+        public void SetGemsCount(int count) 
+            => gemsCount = count;
 
-        public void SetCoinCount(int count) => coinCount = count;
-        public int GetCoinCount() => coinCount;
+        public int GetGemsCount()
+            => gemsCount;
+
+        public void SetCoinCount(int count)
+            => coinCount = count;
+
+        public int GetCoinCount() 
+            => coinCount;
 
 
 

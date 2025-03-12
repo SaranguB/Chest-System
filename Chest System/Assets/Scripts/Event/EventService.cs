@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ChestSystem.Events
 {
     public class EventService

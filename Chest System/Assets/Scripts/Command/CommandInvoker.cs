@@ -1,9 +1,6 @@
 using ChestSystem.Chest;
 using ChestSystem.Player;
-using System;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace ChestSystem.Commands
 {
@@ -11,12 +8,10 @@ namespace ChestSystem.Commands
     {
         private Stack<ICommand> commandRegistry = new Stack<ICommand>();
         private PlayerService playerService;
-       
 
         public CommandInvoker(PlayerService playerService)
         {
             this.playerService = playerService;
-            
         }
 
         public void ProcessCommands(ChestController chestController, ICommand commandToProcess)
@@ -25,24 +20,15 @@ namespace ChestSystem.Commands
             RegisterCommand(commandToProcess);
         }
 
-        private void ExecuteCommand(ChestController chestController, ICommand commandToProcess)
-        {
+        private void ExecuteCommand(ChestController chestController, ICommand commandToProcess) => 
             commandToProcess.Execute(playerService, chestController);
-        }
-
-        private void RegisterCommand(ICommand commandToProcess)
-        {
-            commandRegistry.Push(commandToProcess);
-        }
+ 
+        private void RegisterCommand(ICommand commandToProcess) => commandRegistry.Push(commandToProcess);
 
         public void Undo()
         {
             if (commandRegistry.Count != 0)
-            {
                 commandRegistry.Pop().Undo();
-            }
         }
-
-
     }
 }

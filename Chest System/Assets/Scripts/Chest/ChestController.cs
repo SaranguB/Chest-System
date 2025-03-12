@@ -9,8 +9,6 @@ namespace ChestSystem.Chest
 {
     public class ChestController
     {
-        private List<ChestScriptableObject> chestScriptableObject;
-        private ChestView chestPrefab;
         private ChestView chestView;
         private ChestModel chestModel;
         private SlotsUIController slotUIController;
@@ -24,26 +22,11 @@ namespace ChestSystem.Chest
             SlotsUIController slotUIController, UnlockChestSelectionUIController unlockSelectionUIController)
         {
             this.slotUIController = slotUIController;
-            this.chestScriptableObject = chestScriptableObject;
             this.chestView = chestView;
             this.unlockSelectionUIController = unlockSelectionUIController;
 
-
-            chestModel = new ChestModel(this, chestScriptableObject);
+            chestModel = new ChestModel(chestScriptableObject);
             createStateMachine();
-
-            SubscribeToEvent();
-        }
-
-
-        private void SubscribeToEvent()
-        {
-
-        }
-
-        public void UnSubscribeToEvents()
-        {
-
         }
 
         private void createStateMachine()
@@ -53,24 +36,17 @@ namespace ChestSystem.Chest
 
         public void SetChest()
         {
-
             Transform parentTransform = slotUIController.GetChestSlotPosition();
             currentSlot = slotUIController.GetCurrentSlot();
 
             chestView.transform.SetParent(parentTransform, false);
             chestView.transform.localPosition = Vector3.zero;
-
             chestView.SetController(this);
 
             stateMachine.ChangeState(ChestState.Locked);
-
         }
 
-
-        public Sprite GetChestImage(ChestScriptableObject.ChestType chestType)
-        {
-            return chestModel.GetChestImage(chestType);
-        }
+        public Sprite GetChestImage(ChestScriptableObject.ChestType chestType) => chestModel.GetChestImage(chestType);
 
         public ChestScriptableObject.ChestType GetRandomChestType()
         {
@@ -102,29 +78,20 @@ namespace ChestSystem.Chest
         public void UnlockChestWithGems()
         {
             ICommand openChestWithGemsCommand = new OpenChestWithGemsCommand();
-
             GameService.Instance.commandInvoker.ProcessCommands(this, openChestWithGemsCommand);
         }
 
-        public void UndoUnlockChestWithGems()
-        {
-            GameService.Instance.commandInvoker.Undo();
-        }
+        public void UndoUnlockChestWithGems() => GameService.Instance.commandInvoker.Undo();
 
-        public void EnableUnlockSelection()
-        {
-            unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
+        public void EnableUnlockSelection() => unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
                 chestModel.GetCurrentChestType().ToString(), this, slotUIController, currentSlot);
-        }
 
         public int GetGemsRequiredToUnlockCount()
         {
             float timer = chestModel.GetRemainingTime();
-
             float gemsRequired = timer / 10f;
 
             GemsRequiredToUnlockChest = (int)Math.Ceiling(gemsRequired);
-
             return GemsRequiredToUnlockChest;
         }
 
@@ -133,61 +100,33 @@ namespace ChestSystem.Chest
             float timeInSeconds = time;
 
             int hours = (int)(timeInSeconds / 3600);
-
             int minutes = (int)((timeInSeconds % 3600) / 60);
-
             int seconds = (int)(timeInSeconds % 60);
 
             return $"{hours:D2}:{minutes:D2}:{seconds:D2}";
         }
-        public void SetTimerText()
-        {
-            chestView.SetTimerText(GetRemainingTimeInSeconds());
-        }
 
-        public float GetRemainingTimeInSeconds()
-        {
-            return chestModel.GetRemainingTime() * 60;
-        }
+        public void SetTimerText() => chestView.SetTimerText(GetRemainingTimeInSeconds());
 
-        public void SetTimerText(float timeInSeconds)
-        {
-            chestView.SetTimerText(timeInSeconds);
-        }
+        public float GetRemainingTimeInSeconds() => chestModel.GetRemainingTime() * 60;
 
-        public void UpdateState()
-        {
-            stateMachine.Update();
-        }
+        public void SetTimerText(float timeInSeconds) => chestView.SetTimerText(timeInSeconds);
 
-        public IState CurrentChestState()
-        {
-            return stateMachine.GetCurrentState();
-        }
+        public void UpdateState() => stateMachine.Update();
+
+        public IState CurrentChestState() => stateMachine.GetCurrentState();
 
         public void ChangeState(ChestState state)
         {
-
             if (CurrentChestState() != stateMachine.GetStates()[state])
-            {
                 stateMachine.ChangeState(state);
-            }
         }
 
-        public void SetChestStateText(string state)
-        {
-            chestView.SetChestStateText(state);
-        }
+        public void SetChestStateText(string state) => chestView.SetChestStateText(state);
 
-        public void SetRemainingTime(float time)
-        {
-            chestModel.SetRemainingTime(time);
-        }
+        public void SetRemainingTime(float time) => chestModel.SetRemainingTime(time);
 
-        public void DisableTimerText()
-        {
-            chestView.DisableTimerText();
-        }
+        public void DisableTimerText() => chestView.DisableTimerText();
 
         public void Collect()
         {
@@ -231,10 +170,6 @@ namespace ChestSystem.Chest
             chestView.gameObject.SetActive(false);
         }
 
-        public void EnableChest()
-        {
-            chestView.gameObject.SetActive(true);
-        }
-
+        public void EnableChest() => chestView.gameObject.SetActive(true);
     }
 }

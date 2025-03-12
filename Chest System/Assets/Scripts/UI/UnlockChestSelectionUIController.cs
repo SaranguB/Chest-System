@@ -1,6 +1,4 @@
 using ChestSystem.Chest;
-using System;
-using UnityEngine;
 
 namespace ChestSystem.UI
 {
@@ -20,13 +18,12 @@ namespace ChestSystem.UI
             ChestController chestController, SlotsUIController slotUIController, SlotsUIView currentSlot)
         {
             currentChestController = chestController;
-            this.currentSlotController = slotUIController;
+            currentSlotController = slotUIController;
             this.currentSlot = currentSlot;
 
             unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType, chestController.CurrentChestState());
             RemoveListeners();
             AdddListeners();
-
         }
 
         private void RemoveListeners()
@@ -65,9 +62,7 @@ namespace ChestSystem.UI
         }
 
         public void DisableUnlockSelection()
-        {
-            unlockSelectionUIView.DisableUnlockSelection();
-        }
+            => unlockSelectionUIView.DisableUnlockSelection();
 
         public void SetTimer()
         {
@@ -82,9 +77,8 @@ namespace ChestSystem.UI
                 unlockSelectionUIView.EnableChestAlreadyUnlockingPanel();
             }
         }
+
         public void SetCollectedValues(int collectedGems, int collectedCoins)
-        {
-            unlockSelectionUIView.SetCollectedValues(collectedGems, collectedCoins);
-        }
+            => unlockSelectionUIView.SetCollectedValues(collectedGems, collectedCoins);
     }
 }

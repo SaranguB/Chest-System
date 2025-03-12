@@ -1,4 +1,3 @@
-
 namespace ChestSystem.Chest
 {
     public enum ChestState

@@ -1,6 +1,5 @@
 using ChestSystem.Chest;
 using ChestSystem.StateMachine;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,67 +66,44 @@ namespace ChestSystem.UI
                 case CollectedState:
                     displayCollectedValues.gameObject.SetActive(true);
                     break;
-
             }
         }
 
         private void EnableUnlockSelection()
-        {
-            CanvasGroupExtension.Show(canvasGroup);
-        }
+            => CanvasGroupExtension.Show(canvasGroup);
 
         public void DisableUnlockSelection()
-        {
-            CanvasGroupExtension.Hide(canvasGroup);
-        }
+            => CanvasGroupExtension.Hide(canvasGroup);
 
         private void SetGemsText(int value)
-        {
-            gemsText.text = value.ToString();
-        }
+            => gemsText.text = value.ToString();
 
         private void SetChestTypeText(string value)
-        {
-            chestTypeText.text = value + " Chest";
-        }
+            => chestTypeText.text = value + " Chest";
 
         public Button GetstartTimerButton()
-        {
-            return startTimerButton;
-        }
+            => startTimerButton;
 
         public Button GetUnlockChestWithGemsButton()
-        {
-            return unlockChestWithGemsButton;
-        }
+            => unlockChestWithGemsButton;
 
         public Button GetUndoButton()
-        {
-            return undoButton;
-        }
+            => undoButton;
 
         public Button GetCollectButton()
-        {
-            return collectButton;
-        }
+            => collectButton;
 
         public void EnableDisplayCollectedValues()
-        {
-            displayCollectedValues.gameObject.SetActive(true);
-        }
+           =>  displayCollectedValues.gameObject.SetActive(true);
+
         public void DisableDisplayCollectedValues()
-        {
-            displayCollectedValues.gameObject.SetActive(false);
-        }
+            => displayCollectedValues.gameObject.SetActive(false);
+
         public void EnableChestAlreadyUnlockingPanel()
-        {
-            chestAlreadyUnlockingPanel.gameObject.SetActive(true);
-        }
+            => chestAlreadyUnlockingPanel.gameObject.SetActive(true);
 
         public void DisableChestAlreadyUnlockingPanel()
-        {
-            chestAlreadyUnlockingPanel.gameObject.SetActive(false);
-        }
+            => chestAlreadyUnlockingPanel.gameObject.SetActive(false);
 
         public void SetCollectedValues(int collectedGems, int collectedCoins)
         {

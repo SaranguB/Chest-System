@@ -25,7 +25,6 @@ namespace ChestSystem
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
        
-
         protected override void Awake()
         {
             base.Awake();

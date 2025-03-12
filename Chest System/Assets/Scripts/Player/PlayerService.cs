@@ -1,10 +1,7 @@
-using UnityEngine;
-
 namespace ChestSystem.Player
 {
     public class PlayerService
     {
-       
         private PlayerController playerController;
 
         public PlayerService(PlayerView playerView)
@@ -13,8 +10,6 @@ namespace ChestSystem.Player
         }
 
         public PlayerController GetPlayerController()
-        {
-            return playerController;
-        }
+            => playerController;
     }
 }

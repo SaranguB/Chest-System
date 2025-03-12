@@ -1,4 +1,3 @@
-
 using ChestSystem.StateMachine;
 
 namespace ChestSystem.Chest
@@ -18,14 +17,13 @@ namespace ChestSystem.Chest
         {
             chestController.SetChestStateText("Unlocked");
         }
+
         public void Update()
         {
-
         }
 
         public void OnStateExit()
         {
-
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +11,7 @@ namespace ChestSystem.Chest
         private Button chestButton;
         [SerializeField] private TextMeshProUGUI timerText;
         [SerializeField] private TextMeshProUGUI chestStatetext;
+
         private void Start()
         {
             chestButton = GetComponent<Button>();
@@ -23,16 +23,10 @@ namespace ChestSystem.Chest
             if (chestController != null)
             {
                 if (chestController.CurrentChestState() is UnlockingState)
-                {
                     chestController.UpdateState();
-                }
             }
         }
 
-        private void OnDisable()
-        {
-            chestController.UnSubscribeToEvents();
-        }
         public void SetController(ChestController chestController)
         {
             this.chestController = chestController;
@@ -53,14 +47,8 @@ namespace ChestSystem.Chest
             timerText.text = chestController.FormatTime(timeInSeconds);
         }
 
-        public void SetChestStateText(string state)
-        {
-            chestStatetext.text = state;
-        }
+        public void SetChestStateText(string state) => chestStatetext.text = state;
 
-        public void DisableTimerText()
-        {
-            timerText.gameObject.SetActive(false);
-        }
+        public void DisableTimerText() => timerText.gameObject.SetActive(false);
     }
 }

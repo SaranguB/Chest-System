@@ -314,6 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlockSelectionUIView: {fileID: 1731858000}
+  notEnoughGemPopUp: {fileID: 658112115}
   chestSlotPrefab: {fileID: 2978001239498916184, guid: 6fd5bff7c11e52f4aae9729ece46e0d1, type: 3}
   chestSlotContainer: {fileID: 430274197}
   initialSlots: 4
@@ -722,7 +723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000012398, y: -23.9}
+  m_AnchoredPosition: {x: -0.000012398, y: -16.421}
   m_SizeDelta: {x: 50.7404, y: 23.4533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &304112200
@@ -769,9 +770,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1731858000}
-        m_TargetAssemblyTypeName: ChestSystem.UI.UnlockChestSelectionUIView, Assembly-CSharp
-        m_MethodName: DisableChestAlreadyUnlockingPanel
+      - m_Target: {fileID: 64248257}
+        m_TargetAssemblyTypeName: ChestSystem.UI.UIService, Assembly-CSharp
+        m_MethodName: DisableNotEnougGemPopUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2503,12 +2504,12 @@ GameObject:
   - component: {fileID: 658112118}
   - component: {fileID: 658112117}
   m_Layer: 5
-  m_Name: 'noEnoughGemsPopupPanel  '
+  m_Name: 'NotEnoughGemsPopupPanel  '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &658112116
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3217,6 +3218,7 @@ RectTransform:
   - {fileID: 972017195}
   - {fileID: 1731857996}
   - {fileID: 658112116}
+  - {fileID: 2054539033}
   m_Father: {fileID: 1494680750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3545,7 +3547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Chest Unlocking In Progress
+  m_text: Not Enough Gems
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -4772,7 +4774,6 @@ RectTransform:
   - {fileID: 1271822423}
   - {fileID: 1961711626}
   - {fileID: 445444063}
-  - {fileID: 2054539033}
   m_Father: {fileID: 1020307214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5956,11 +5957,11 @@ RectTransform:
   - {fileID: 105803972}
   - {fileID: 1606705251}
   - {fileID: 598447303}
-  m_Father: {fileID: 1731857996}
+  m_Father: {fileID: 1020307214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 58.999954}
   m_SizeDelta: {x: 359.3505, y: 172.85559}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2054539034
@@ -6058,8 +6059,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You\u2019re already unlocking a chest. \nWait for it to finish, or speed
-    it up using gems!"
+  m_text: 'Looks like you''re running low on gems.
+
+    Try again after collecting
+    more!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}

@@ -1,4 +1,3 @@
-
 using ChestSystem.StateMachine;
 using UnityEngine;
 
@@ -35,6 +34,7 @@ namespace ChestSystem.Chest
             else if (remainingTime <= 0)
             {
                 remainingTime = 0;
+
                 chestController.SetRemainingTime(remainingTime / 60);
                 chestController.SetTimerText(remainingTime);
                 chestStateMachine.ChangeState(ChestState.Unlocked);

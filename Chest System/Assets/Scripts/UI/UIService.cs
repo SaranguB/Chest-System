@@ -1,16 +1,12 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ChestSystem.UI
 {
-
-
     public class UIService : MonoBehaviour
     {
         private UnlockChestSelectionUIController unlockSelectionUIController;
         [SerializeField] private UnlockChestSelectionUIView unlockSelectionUIView;
-
         [SerializeField] private GameObject notEnoughGemPopUp;
 
         [Header("Add Chest Slot UI")]
@@ -19,38 +15,39 @@ namespace ChestSystem.UI
         [SerializeField] private Transform chestSlotContainer;
         [SerializeField] private int initialSlots;
         [SerializeField] private Button addSlotButton;
-
-
         [SerializeField] private Button generateChestButton;
 
         private void Start()
         {
-            addSlotButton.onClick.AddListener(CreateSlot);
             slotsUIController = new SlotsUIController();
             unlockSelectionUIController = new UnlockChestSelectionUIController(unlockSelectionUIView);
 
+            createInitialSlots();
+            AddListenersToButton();
+            SubscribeToEvents();
+        }
+
+        private void AddListenersToButton()
+        {
+            addSlotButton.onClick.AddListener(CreateSlot);
+            generateChestButton.onClick.AddListener(()
+                => GameService.Instance.chestService.GenerateChest(GetSlots(), GetUnlockSlection()));
+        }
+
+        private void createInitialSlots()
+        {
             for (int i = 1; i <= initialSlots; i++)
                 CreateSlot();
-
-            generateChestButton.onClick.AddListener(()=> GameService.Instance.chestService.GenerateChest(GetSlots(), GetUnlockSlection()));
-            SubscribeToEvents();
-
         }
 
         private void OnDisable()
-        {
-            UnSubscribeToEvents();
-        }
+            => UnSubscribeToEvents();
 
         private void SubscribeToEvents()
-        {
-            GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.AddListener(EnableNotEnougGemPopUp);
-        }
+            => GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.AddListener(EnableNotEnougGemPopUp);
 
         private void UnSubscribeToEvents()
-        {
-
-        }
+           => GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.RemoveListener(EnableNotEnougGemPopUp);
 
         public void CreateSlot()
         {
@@ -61,25 +58,15 @@ namespace ChestSystem.UI
         }
 
         public SlotsUIController GetSlots()
-        {
-            return slotsUIController;
-        }
+            => slotsUIController;
 
-        private UnlockChestSelectionUIController GetUnlockSlection()
-        {
-            return unlockSelectionUIController;
-        }
+        private UnlockChestSelectionUIController GetUnlockSlection() 
+            => unlockSelectionUIController;
 
         public void EnableNotEnougGemPopUp()
-        {
-            notEnoughGemPopUp.SetActive(true);
-        }
+            => notEnoughGemPopUp.SetActive(true);
 
         public void DisableNotEnougGemPopUp()
-        {
-            notEnoughGemPopUp.SetActive(false);
-
-        }
-
+            => notEnoughGemPopUp.SetActive(false);
     }
 }

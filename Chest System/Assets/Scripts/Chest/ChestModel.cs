@@ -1,24 +1,21 @@
-using System;
 using System.Collections.Generic;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 namespace ChestSystem.Chest
 {
     public class ChestModel
     {
-        private ChestController chestController;
+        
         private List<ChestScriptableObject> chestScriptableObject;
         private Dictionary<ChestScriptableObject.ChestType, Sprite> chestImages;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTypeChance;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTimer;
         private Dictionary<ChestScriptableObject.ChestType, ChestScriptableObject.ChestRewards> chestRewards;
         private float remainingTime;
-
         private ChestScriptableObject.ChestType currentChestType;
-        public ChestModel(ChestController chestController, List<ChestScriptableObject> chestScriptableObject)
+
+        public ChestModel(List<ChestScriptableObject> chestScriptableObject)
         {
-            this.chestController = chestController;
             this.chestScriptableObject = chestScriptableObject;
 
             InitializeChestImages();
@@ -34,9 +31,7 @@ namespace ChestSystem.Chest
             foreach (var chestSO in chestScriptableObject)
             {
                 if (!chestRewards.ContainsKey(chestSO.chestType))
-                {
                     chestRewards[chestSO.chestType] = chestSO.chestRewards;
-                }
             }
         }
 
@@ -46,9 +41,7 @@ namespace ChestSystem.Chest
             foreach (var chestSO in chestScriptableObject)
             {
                 if (!chestTimer.ContainsKey(chestSO.chestType))
-                {
                     chestTimer[chestSO.chestType] = chestSO.chestTimer;
-                }
             }
         }
 
@@ -61,7 +54,6 @@ namespace ChestSystem.Chest
             return null;
         }
 
-
         private void InitializeChestTypeChance()
         {
             chestTypeChance = new Dictionary<ChestScriptableObject.ChestType, float>();
@@ -69,13 +61,8 @@ namespace ChestSystem.Chest
             foreach (var chestSO in chestScriptableObject)
             {
                 if (!chestTypeChance.ContainsKey(chestSO.chestType))
-                {
                     chestTypeChance[chestSO.chestType] = chestSO.chestGeneratingChance;
-                }
             }
-
-
-
         }
 
         private void InitializeChestImages()
@@ -101,10 +88,7 @@ namespace ChestSystem.Chest
             return null;
         }
 
-        public Dictionary<ChestScriptableObject.ChestType, float> GetChestTypeChance()
-        {
-            return chestTypeChance;
-        }
+        public Dictionary<ChestScriptableObject.ChestType, float> GetChestTypeChance() => chestTypeChance;
 
         public float GetChestTimer()
         {
@@ -114,10 +98,8 @@ namespace ChestSystem.Chest
             }
             return 0;
         }
-        public void SetCurrentChestType(ChestScriptableObject.ChestType chestType)
-        {
-            currentChestType = chestType;
-        }
+
+        public void SetCurrentChestType(ChestScriptableObject.ChestType chestType) => currentChestType = chestType;
 
         public ChestScriptableObject.ChestType GetCurrentChestType()
         {
@@ -128,9 +110,7 @@ namespace ChestSystem.Chest
         {
             remainingTime = time;
         }
-        public float GetRemainingTime()
-        {
-            return remainingTime;
-        }
+
+        public float GetRemainingTime() => remainingTime;
     }
 }

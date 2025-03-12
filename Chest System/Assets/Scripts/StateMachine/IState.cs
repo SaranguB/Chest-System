@@ -1,5 +1,3 @@
-
-
 namespace ChestSystem.StateMachine
 {
     public interface IState
@@ -7,6 +5,5 @@ namespace ChestSystem.StateMachine
         public void OnStateEnter();
         public void Update();
         public void OnStateExit();
-
     }
 }

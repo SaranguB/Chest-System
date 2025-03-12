@@ -1,36 +1,28 @@
-
-using System;
-
 namespace ChestSystem.Player
 {
     public class PlayerController
     {
         private PlayerView playerView;
         private PlayerModel playerModel;
+
         public PlayerController(PlayerView playerView)
         {
             this.playerView = playerView;
             this.playerModel = new PlayerModel();
-
             this.playerView.SetController(this);
 
             SubscribeToEvents();
         }
 
-        public void Dispose()
-        {
-            UnSubscibeToEvents();
-        }
-
         private void SubscribeToEvents()
-        {
-            GameService.Instance.eventService.OnRewardCollectedEvent.AddListener(SetTotalGemsAndCoinsCount);
-        }
+            => GameService.Instance.eventService.OnRewardCollectedEvent.AddListener(SetTotalGemsAndCoinsCount);
+
+        public void Dispose()
+            => UnSubscibeToEvents();
 
         private void UnSubscibeToEvents()
-        {
-            GameService.Instance.eventService.OnRewardCollectedEvent.RemoveListener(SetTotalGemsAndCoinsCount);
-        }
+            => GameService.Instance.eventService.OnRewardCollectedEvent.RemoveListener(SetTotalGemsAndCoinsCount);
+
 
         public void SetTotalGemsAndCoinsCount(int gems, int coins)
         {
@@ -47,7 +39,8 @@ namespace ChestSystem.Player
             playerView.DisplayGemsCount();
         }
 
-        public int GetGemsCount() => playerModel.GetGemsCount();
+        public int GetGemsCount() 
+            => playerModel.GetGemsCount();
 
         public void SetCoinCount(int count)
         {
@@ -55,6 +48,8 @@ namespace ChestSystem.Player
             playerView.DisplayCoinsCount();
 
         }
-        public int GetCoinCount() => playerModel.GetCoinCount();
+
+        public int GetCoinCount()
+            => playerModel.GetCoinCount();
     }
 }

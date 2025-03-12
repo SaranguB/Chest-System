@@ -6,9 +6,9 @@ namespace ChestSystem.Chest
     public class ChestStateMachine
     {
         private IState currentState;
-
         public Dictionary<ChestState, IState> states;
         private ChestState currentChestStateEnum;
+
         public ChestStateMachine(ChestController chestController)
         {
             CreateStates(chestController);
@@ -38,16 +38,10 @@ namespace ChestSystem.Chest
             currentState?.OnStateEnter();
         }
 
-        public void Update()
-        {
-            currentState?.Update();
-        }
+        public void Update() => currentState?.Update();
 
         public IState GetCurrentState() => currentState;
 
-        public Dictionary<ChestState, IState> GetStates()
-        {
-            return states;
-        }
+        public Dictionary<ChestState, IState> GetStates() => states;
     }
 }

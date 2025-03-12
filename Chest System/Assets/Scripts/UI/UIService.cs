@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace ChestSystem.UI
         private UnlockChestSelectionUIController unlockSelectionUIController;
         [SerializeField] private UnlockChestSelectionUIView unlockSelectionUIView;
         [SerializeField] private GameObject notEnoughGemPopUp;
+        [SerializeField] private GameObject slotNotAvailablePopUp;
 
         [Header("Add Chest Slot UI")]
         private SlotsUIController slotsUIController;
@@ -30,6 +32,7 @@ namespace ChestSystem.UI
         private void AddListenersToButton()
         {
             addSlotButton.onClick.AddListener(CreateSlot);
+            addSlotButton.onClick.AddListener(PlayButtonSound);
             generateChestButton.onClick.AddListener(()
                 => GameService.Instance.chestService.GenerateChest(GetSlots(), GetUnlockSlection()));
         }
@@ -44,10 +47,16 @@ namespace ChestSystem.UI
             => UnSubscribeToEvents();
 
         private void SubscribeToEvents()
-            => GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.AddListener(EnableNotEnougGemPopUp);
+        {
+            GameService.Instance.eventService.onChestNotUnlockedWithGemsEvent.AddListener(EnableNotEnougGemPopUp);
+            GameService.Instance.eventService.onSlotNotAvailableEvent.AddListener(EnableSlotNotAvailable);
+        }
 
         private void UnSubscribeToEvents()
-           => GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.RemoveListener(EnableNotEnougGemPopUp);
+        {
+            GameService.Instance.eventService.onChestNotUnlockedWithGemsEvent.RemoveListener(EnableNotEnougGemPopUp);
+            GameService.Instance.eventService.onSlotNotAvailableEvent.RemoveListener(EnableSlotNotAvailable);
+        }
 
         public void CreateSlot()
         {
@@ -56,11 +65,15 @@ namespace ChestSystem.UI
 
             slotsUIController.AddSlot(slotsUIView);
         }
+        private void PlayButtonSound()
+        {
+            GameService.Instance.SoundService.PlaySound(Sounds.ButtonPressedSound);
+        }
 
         public SlotsUIController GetSlots()
             => slotsUIController;
 
-        private UnlockChestSelectionUIController GetUnlockSlection() 
+        private UnlockChestSelectionUIController GetUnlockSlection()
             => unlockSelectionUIController;
 
         public void EnableNotEnougGemPopUp()
@@ -68,5 +81,11 @@ namespace ChestSystem.UI
 
         public void DisableNotEnougGemPopUp()
             => notEnoughGemPopUp.SetActive(false);
+
+        public void EnableSlotNotAvailable()
+            => slotNotAvailablePopUp.SetActive(true);
+
+        public void DisableSlotNotAvailable()
+            => slotNotAvailablePopUp.SetActive(false);
     }
 }

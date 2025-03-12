@@ -2,13 +2,16 @@ namespace ChestSystem.Events
 {
     public class EventService
     {
-        public EventController OnChestNotUnlockedWithGemsEvent;
-        public EventController<int,int> OnRewardCollectedEvent;
-
+        public EventController onChestNotUnlockedWithGemsEvent;
+        public EventController<int,int> onRewardCollectedEvent;
+        public EventController onSlotNotAvailableEvent;
         public EventService()
         {
-            OnChestNotUnlockedWithGemsEvent = new EventController();
-            OnRewardCollectedEvent = new EventController<int, int>();
+            onChestNotUnlockedWithGemsEvent = new EventController();
+            onRewardCollectedEvent = new EventController<int, int>();
+            onSlotNotAvailableEvent = new EventController();
         }
+
+        
     }
 }

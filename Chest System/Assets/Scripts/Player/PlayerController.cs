@@ -15,13 +15,13 @@ namespace ChestSystem.Player
         }
 
         private void SubscribeToEvents()
-            => GameService.Instance.eventService.OnRewardCollectedEvent.AddListener(SetTotalGemsAndCoinsCount);
+            => GameService.Instance.eventService.onRewardCollectedEvent.AddListener(SetTotalGemsAndCoinsCount);
 
         public void Dispose()
             => UnSubscibeToEvents();
 
         private void UnSubscibeToEvents()
-            => GameService.Instance.eventService.OnRewardCollectedEvent.RemoveListener(SetTotalGemsAndCoinsCount);
+            => GameService.Instance.eventService.onRewardCollectedEvent.RemoveListener(SetTotalGemsAndCoinsCount);
 
 
         public void SetTotalGemsAndCoinsCount(int gems, int coins)

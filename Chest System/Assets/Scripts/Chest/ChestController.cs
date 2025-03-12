@@ -84,8 +84,12 @@ namespace ChestSystem.Chest
 
         public void UndoUnlockChestWithGems() => GameService.Instance.commandInvoker.Undo();
 
-        public void EnableUnlockSelection() => unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
+        public void EnableUnlockSelection()
+        {
+            GameService.Instance.SoundService.PlaySound(Sounds.ChestPressedSound);
+            unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
                 chestModel.GetCurrentChestType().ToString(), this, slotUIController, currentSlot, isChestunlockedWithGems);
+        }
 
         public int GetGemsRequiredToUnlockCount()
         {
@@ -138,7 +142,7 @@ namespace ChestSystem.Chest
             int coins = GetCollectedCoins();
 
             unlockSelectionUIController.SetCollectedValues(gems, coins);
-            GameService.Instance.eventService.OnRewardCollectedEvent.InvokeEvent(gems, coins);
+            GameService.Instance.eventService.onRewardCollectedEvent.InvokeEvent(gems, coins);
         }
 
         private int GetCollectedCoins()

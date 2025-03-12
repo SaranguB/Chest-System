@@ -28,7 +28,8 @@ namespace ChestSystem.Commands
             }
             else
             {
-                GameService.Instance.eventService.OnChestNotUnlockedWithGemsEvent.InvokeEvent();
+                GameService.Instance.eventService.onChestNotUnlockedWithGemsEvent.InvokeEvent();
+                GameService.Instance.SoundService.PlaySound(Sounds.PopUpSound);
             }
         }
 

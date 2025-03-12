@@ -21,6 +21,12 @@ namespace ChestSystem.Chest
                 chestController = chestPool.GetChest(slotUIController, unlockSelectionUIController);
                 chestController.EnableChest();
                 chestController.SetChest();
+                GameService.Instance.SoundService.PlaySound(Sounds.ChestGenerated);
+            }
+            else
+            {
+                GameService.Instance.eventService.onSlotNotAvailableEvent.InvokeEvent();
+                GameService.Instance.SoundService.PlaySound(Sounds.PopUpSound);
             }
         }
 

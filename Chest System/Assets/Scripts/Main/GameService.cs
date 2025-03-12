@@ -18,13 +18,17 @@ namespace ChestSystem
         public EventService eventService { get; private set; }
         public CommandInvoker commandInvoker { get; private set; }
 
+        [Header("Sound")]
+        [SerializeField] private SoundService soundService;
+        public SoundService SoundService => soundService;
+
         [Header("Chest")]
         [SerializeField] private List<ChestScriptableObject> chestScriptableObject;
         [SerializeField] private ChestView chestPrefab;
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;
-       
+
         protected override void Awake()
         {
             base.Awake();

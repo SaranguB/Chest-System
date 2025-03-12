@@ -48,6 +48,8 @@ namespace ChestSystem.UI
 
         private void SetCollectButton()
         {
+            PlayButtonPressedSound();
+            GameService.Instance.SoundService.PlaySound(Sounds.ChestOpen);
             currentChestController.Collect();
             DisableUnlockSelection();
             currentSlotController.SetIsSlotHasAChest(currentSlot, true);
@@ -55,6 +57,7 @@ namespace ChestSystem.UI
 
         private void SetUndoButton()
         {
+            PlayButtonPressedSound();
             currentChestController.UndoUnlockChestWithGems();
             DisableUnlockSelection();
         }
@@ -71,6 +74,7 @@ namespace ChestSystem.UI
         public void SetTimer()
         {
             DisableUnlockSelection();
+            PlayButtonPressedSound();
 
             if (!GameService.Instance.chestService.GetIsChestUnlocking())
             {
@@ -79,7 +83,13 @@ namespace ChestSystem.UI
             else
             {
                 unlockSelectionUIView.EnableChestAlreadyUnlockingPanel();
+                GameService.Instance.SoundService.PlaySound(Sounds.PopUpSound);
             }
+        }
+
+        private void PlayButtonPressedSound()
+        {
+            GameService.Instance.SoundService.PlaySound(Sounds.ButtonPressedSound);
         }
 
         public void SetCollectedValues(int collectedGems, int collectedCoins)

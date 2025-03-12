@@ -385,8 +385,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282368986
+  m_fontColor: {r: 0.854902, g: 0.76470596, b: 0.24705884, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1558,7 +1558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000012398, y: -27}
+  m_AnchoredPosition: {x: -0.000012398, y: -23.9}
   m_SizeDelta: {x: 50.7404, y: 23.4533}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &598447304
@@ -1604,7 +1604,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 598447305}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1731858000}
+        m_TargetAssemblyTypeName: ChestSystem.UI.UnlockChestSelectionUIView, Assembly-CSharp
+        m_MethodName: DisableChestAlreadyUnlockingPanel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &598447305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1982,7 +1994,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.854902, g: 0.76470596, b: 0.24705884, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2856,7 +2868,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 972017195}
-  - {fileID: 2054539033}
   - {fileID: 1731857996}
   m_Father: {fileID: 1494680750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3960,7 +3971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000006198883, y: 16.9}
+  m_AnchoredPosition: {x: -0.000025431, y: 23.3}
   m_SizeDelta: {x: 278.7552, y: 55.9882}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606705252
@@ -4191,7 +4202,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1713492531}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1731858000}
+        m_TargetAssemblyTypeName: ChestSystem.UI.UnlockChestSelectionUIView, Assembly-CSharp
+        m_MethodName: DisableDisplayCollectedValues
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1713492531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4265,6 +4288,7 @@ RectTransform:
   - {fileID: 1271822423}
   - {fileID: 1961711626}
   - {fileID: 445444063}
+  - {fileID: 2054539033}
   m_Father: {fileID: 1020307214}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4341,8 +4365,10 @@ MonoBehaviour:
   unlockChestWithGemsButton: {fileID: 458833887}
   undoButton: {fileID: 471956596}
   collectButton: {fileID: 1825144610}
+  chestAlreadyUnlockingPanel: {fileID: 2054539032}
   displayCollectedValues: {fileID: 972017194}
-  checkAlreadyUnlockingPanel: {fileID: 0}
+  collectedGemsText: {fileID: 1071990258}
+  collectedCoinsText: {fileID: 914831533}
 --- !u!1 &1737517616
 GameObject:
   m_ObjectHideFlags: 0
@@ -4392,7 +4418,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fb6e2933e38b79f4bbc2c30906cf1276, type: 2}
   - {fileID: 11400000, guid: 94614e9d21c24174b8e3ac9b81bd748d, type: 2}
   - {fileID: 11400000, guid: 3f94e0b4f2b9d0744afe0bf6ec4886a8, type: 2}
-  chestPrefab: {fileID: 2978001239498916184, guid: 27a62abc7a4334645b0f8bc368ea48e5, type: 3}
+  chestPrefab: {fileID: 1736223647878613953, guid: 27a62abc7a4334645b0f8bc368ea48e5, type: 3}
   playerView: {fileID: 779984275}
 --- !u!1 &1745563781
 GameObject:
@@ -5444,13 +5470,13 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 105803972}
-  - {fileID: 598447303}
   - {fileID: 1606705251}
-  m_Father: {fileID: 1020307214}
+  - {fileID: 598447303}
+  m_Father: {fileID: 1731857996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 58.99998}
+  m_AnchoredPosition: {x: 0, y: -0.000030517578}
   m_SizeDelta: {x: 359.3505, y: 172.85559}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2054539034

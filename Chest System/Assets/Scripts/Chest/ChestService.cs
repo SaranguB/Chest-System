@@ -11,7 +11,7 @@ namespace ChestSystem.Chest
 
         private ChestPool chestPool;
         private bool isChestUnlocking = false;
-        public ChestService(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab)
+        public ChestService(List<ChestScriptableObject> chestScriptableObject, ChestView chestPrefab)
         {
             chestPool = new ChestPool(chestScriptableObject, chestPrefab);
             SubscribeToEvents();
@@ -22,10 +22,15 @@ namespace ChestSystem.Chest
 
         }
 
-        public void GenerateChest(SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
+        public void GenerateChest(SlotsUIController slotUIController, UnlockChesSelectionUIController unlockSelectionUIController)
         {
             if (slotUIController.CheckAnySlotAvailble())
+            {
                 chestController = chestPool.GetChest(slotUIController, unlockSelectionUIController);
+                chestController.EnableChest();
+                chestController.SetChest();
+            }
+
         }
 
         public ChestController GetChest()
@@ -41,6 +46,11 @@ namespace ChestSystem.Chest
         public bool GetIsChestUnlocking()
         {
             return isChestUnlocking;
+        }
+
+        public void ReturnChestToPool(ChestController chestController)
+        {
+            chestPool.ReturnToPool(chestController);
         }
     }
 }

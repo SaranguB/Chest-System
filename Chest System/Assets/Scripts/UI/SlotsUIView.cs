@@ -14,5 +14,10 @@ namespace ChestSystem.UI
             this.SlotsUIController = addSlotsUIController;
           
         }  
+
+        public SlotsUIView GetCurrentSlotView()
+        {
+            return this;
+        }
     }
 }

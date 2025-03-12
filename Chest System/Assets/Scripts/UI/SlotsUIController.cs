@@ -8,10 +8,10 @@ namespace ChestSystem.UI
 {
     public class SlotsUIController
     {
-        private SlotsUIView SlotsUIView;
+        private SlotsUIView slotsUIView;
         private List<SlotsUIView> slotList;
         private Dictionary<SlotsUIView, bool> IsSlotAvailable;
-
+        private SlotsUIView CurrentSlot;
         public SlotsUIController()
         {
             slotList = new List<SlotsUIView>();
@@ -22,21 +22,23 @@ namespace ChestSystem.UI
         public void AddSlot(SlotsUIView slotsUIView)
         {
             slotList.Add(slotsUIView);
-            SetIsSlotHasAChest(slotsUIView);
+            SetIsSlotHasAChest(slotsUIView, true);
             slotsUIView.SetSlotsUIController(this);
 
             SetSlotPosition();
         }
 
-        private void SetIsSlotHasAChest(SlotsUIView slotsUIView)
+        public void SetIsSlotHasAChest(SlotsUIView slotsUIView, bool value)
         {
             if (!IsSlotAvailable.ContainsKey(slotsUIView))
             {
-                IsSlotAvailable.Add(slotsUIView,true);
+                IsSlotAvailable.Add(slotsUIView, true);
+            }
+            else
+            {
+                IsSlotAvailable[slotsUIView] = value;
             }
         }
-
-
 
         public void SetSlotPosition()
         {
@@ -56,9 +58,10 @@ namespace ChestSystem.UI
             {
                 foreach (var slot in slotList)
                 {
-                   if( CheckSlotIsAvailable(slot))
+                    if (CheckSlotIsAvailable(slot))
                     {
                         IsSlotAvailable[slot] = false;
+                        CurrentSlot = slot;
                         return slot.transform;
                     }
                 }
@@ -66,6 +69,7 @@ namespace ChestSystem.UI
             return null;
         }
 
+        
         private bool CheckSlotIsAvailable(SlotsUIView slot)
         {
             return IsSlotAvailable.TryGetValue(slot, out bool isAvailable) && isAvailable;
@@ -74,7 +78,7 @@ namespace ChestSystem.UI
         public bool CheckAnySlotAvailble()
         {
             bool isAvailable = false;
-            foreach(var slot in IsSlotAvailable)
+            foreach (var slot in IsSlotAvailable)
             {
                 if (slot.Value == true)
                 {
@@ -82,6 +86,11 @@ namespace ChestSystem.UI
                 }
             }
             return isAvailable;
+        }
+
+        public SlotsUIView GetCurrentSlot()
+        {
+            return CurrentSlot;
         }
     }
 }

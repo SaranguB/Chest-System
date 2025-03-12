@@ -12,6 +12,7 @@ namespace ChestSystem.Chest
         private Dictionary<ChestScriptableObject.ChestType, Sprite> chestImages;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTypeChance;
         private Dictionary<ChestScriptableObject.ChestType, float> chestTimer;
+        private Dictionary<ChestScriptableObject.ChestType, ChestScriptableObject.ChestRewards> chestRewards;
         private float remainingTime;
 
         private ChestScriptableObject.ChestType currentChestType;
@@ -23,6 +24,20 @@ namespace ChestSystem.Chest
             InitializeChestImages();
             InitializeChestTypeChance();
             InitializeChestTimer();
+            InitializeChesetRewards();
+        }
+
+        private void InitializeChesetRewards()
+        {
+            chestRewards = new Dictionary<ChestScriptableObject.ChestType, ChestScriptableObject.ChestRewards>();
+
+            foreach (var chestSO in chestScriptableObject)
+            {
+                if (!chestRewards.ContainsKey(chestSO.chestType))
+                {
+                    chestRewards[chestSO.chestType] = chestSO.chestRewards;
+                }
+            }
         }
 
         private void InitializeChestTimer()
@@ -36,6 +51,16 @@ namespace ChestSystem.Chest
                 }
             }
         }
+
+        public ChestScriptableObject.ChestRewards GetChestRewards(ChestScriptableObject.ChestType chestType)
+        {
+            if (chestRewards.ContainsKey(chestType))
+            {
+                return chestRewards[chestType];
+            }
+            return null;
+        }
+
 
         private void InitializeChestTypeChance()
         {

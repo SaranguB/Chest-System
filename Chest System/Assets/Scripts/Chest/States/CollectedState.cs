@@ -17,6 +17,7 @@ namespace ChestSystem.Chest
         public void OnStateEnter()
         {
             chestController.SetChestStateText("Collected");
+            chestController.EnableUnlockSelection();
 
         }
         public void Update()

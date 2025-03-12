@@ -4,18 +4,24 @@ using UnityEngine;
 
 namespace ChestSystem.UI
 {
-    public class UnlockSelectionUIController
+    public class UnlockChesSelectionUIController
     {
         private UnlockChestSelectionUIView unlockSelectionUIView;
         private ChestController currentChestController;
-        public UnlockSelectionUIController(UnlockChestSelectionUIView unlockSelectionUIView)
+        private SlotsUIController currentSlotController;
+        private SlotsUIView currentSlot;
+
+        public UnlockChesSelectionUIController(UnlockChestSelectionUIView unlockChestSelectionUIView)
         {
-            this.unlockSelectionUIView = unlockSelectionUIView;
+            this.unlockSelectionUIView = unlockChestSelectionUIView;
         }
 
-        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType, ChestController chestController)
+        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType,
+            ChestController chestController, SlotsUIController slotUIController, SlotsUIView currentSlot)
         {
             currentChestController = chestController;
+            this.currentSlotController = slotUIController;
+            this.currentSlot = currentSlot;
 
             unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType, chestController.CurrentChestState());
             RemoveListeners();
@@ -41,8 +47,9 @@ namespace ChestSystem.UI
 
         private void SetCollectButton()
         {
-            currentChestController.ChangeState(ChestState.Collected);
+            currentChestController.Collect();
             DisableUnlockSelection();
+            currentSlotController.SetIsSlotHasAChest(currentSlot, true);
         }
 
         private void SetUndoButton()
@@ -64,11 +71,20 @@ namespace ChestSystem.UI
 
         public void SetTimer()
         {
+            DisableUnlockSelection();
+
             if (!GameService.Instance.chestService.GetIsChestUnlocking())
             {
                 currentChestController.ChangeState(ChestState.Unlocking);
-                DisableUnlockSelection();
             }
+            else
+            {
+                unlockSelectionUIView.EnableChestAlreadyUnlockingPanel();
+            }
+        }
+        public void SetCollectedValues(int collectedGems, int collectedCoins)
+        {
+            unlockSelectionUIView.SetCollectedValues(collectedGems, collectedCoins);
         }
     }
 }

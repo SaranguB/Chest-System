@@ -17,6 +17,11 @@ namespace ChestSystem.Player
             DisplayCoinsCount();
         }
 
+        private void OnDisable()
+        {
+            playerController.Dispose();
+        }
+
         public void DisplayGemsCount()
         {
             numberOfGemsText.text = playerController.GetGemsCount().ToString();

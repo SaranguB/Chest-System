@@ -20,7 +20,7 @@ namespace ChestSystem
 
         [Header("Chest")]
         [SerializeField] private List<ChestScriptableObject> chestScriptableObject;
-        [SerializeField] private GameObject chestPrefab;
+        [SerializeField] private ChestView chestPrefab;
 
         [Header("Player")]
         [SerializeField] private PlayerView playerView;

@@ -10,26 +10,28 @@ namespace ChestSystem.Chest
     public class ChestController
     {
         private List<ChestScriptableObject> chestScriptableObject;
-        private GameObject chestPrefab;
+        private ChestView chestPrefab;
         private ChestView chestView;
         private ChestModel chestModel;
         private SlotsUIController slotUIController;
         private ChestStateMachine stateMachine;
-        private UnlockSelectionUIController unlockSelectionUIController;
+        private UnlockChesSelectionUIController unlockSelectionUIController;
         public bool isCountingStarted = false;
         private int GemsRequiredToUnlockChest;
-        public ChestController(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab,
-            SlotsUIController slotUIController, UnlockSelectionUIController unlockSelectionUIController)
+        private SlotsUIView currentSlot;
+
+        public ChestController(List<ChestScriptableObject> chestScriptableObject, ChestView chestView,
+            SlotsUIController slotUIController, UnlockChesSelectionUIController unlockSelectionUIController)
         {
             this.slotUIController = slotUIController;
             this.chestScriptableObject = chestScriptableObject;
-            this.chestPrefab = chestPrefab;
+            this.chestView = chestView;
             this.unlockSelectionUIController = unlockSelectionUIController;
 
+
             chestModel = new ChestModel(this, chestScriptableObject);
-            GenerateChest();
             createStateMachine();
-            stateMachine.ChangeState(ChestState.Locked);
+
             SubscribeToEvent();
         }
 
@@ -49,22 +51,21 @@ namespace ChestSystem.Chest
             stateMachine = new ChestStateMachine(this);
         }
 
-        private void GenerateChest()
+        public void SetChest()
         {
-            GameObject newChest = GameObject.Instantiate(chestPrefab);
+
             Transform parentTransform = slotUIController.GetChestSlotPosition();
+            currentSlot = slotUIController.GetCurrentSlot();
 
-            newChest.transform.SetParent(parentTransform, false);
-            newChest.transform.localPosition = Vector3.zero;
+            chestView.transform.SetParent(parentTransform, false);
+            chestView.transform.localPosition = Vector3.zero;
 
-            SetChestView(newChest);
-        }
-
-        private void SetChestView(GameObject newChest)
-        {
-            chestView = newChest.GetComponent<ChestView>();
             chestView.SetController(this);
+
+            stateMachine.ChangeState(ChestState.Locked);
+
         }
+
 
         public Sprite GetChestImage(ChestScriptableObject.ChestType chestType)
         {
@@ -113,7 +114,7 @@ namespace ChestSystem.Chest
         public void EnableUnlockSelection()
         {
             unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
-                chestModel.GetCurrentChestType().ToString(), this);
+                chestModel.GetCurrentChestType().ToString(), this, slotUIController, currentSlot);
         }
 
         public int GetGemsRequiredToUnlockCount()
@@ -188,6 +189,52 @@ namespace ChestSystem.Chest
             chestView.DisableTimerText();
         }
 
+        public void Collect()
+        {
+            ChangeState(ChestState.Collected);
+            RemoveChest();
+
+            int gems = GetCollectedGems();
+            int coins = GetCollectedCoins();
+
+            unlockSelectionUIController.SetCollectedValues(gems, coins);
+            GameService.Instance.eventService.OnRewardCollectedEvent.InvokeEvent(gems, coins);
+        }
+
+        private int GetCollectedCoins()
+        {
+            ChestScriptableObject.ChestRewards rewards = chestModel.GetChestRewards(
+                chestModel.GetCurrentChestType());
+
+            int minimumCoins = rewards.minCoin;
+            int maximumCoins = rewards.maxCoin;
+
+            int collectedCoins = UnityEngine.Random.Range(minimumCoins, maximumCoins);
+            return collectedCoins;
+        }
+
+        private int GetCollectedGems()
+        {
+            ChestScriptableObject.ChestRewards rewards = chestModel.GetChestRewards(
+                chestModel.GetCurrentChestType());
+
+            int minimumGems = rewards.minGems;
+            int maximumGems = rewards.maxGems;
+
+            int collectedGems = UnityEngine.Random.Range(minimumGems, maximumGems);
+            return collectedGems;
+        }
+
+        public void RemoveChest()
+        {
+            GameService.Instance.chestService.ReturnChestToPool(this);
+            chestView.gameObject.SetActive(false);
+        }
+
+        public void EnableChest()
+        {
+            chestView.gameObject.SetActive(true);
+        }
 
     }
 }

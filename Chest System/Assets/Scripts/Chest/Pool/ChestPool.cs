@@ -1,5 +1,4 @@
 using ChestSystem.UI;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,16 +9,16 @@ namespace ChestSystem.Chest
         private List<PooledChest> pooledChests = new List<PooledChest>();
 
         private List<ChestScriptableObject> chestScriptableObject;
-        private GameObject chestPrefab;
+        private ChestView chestPrefab;
 
-        public ChestPool(List<ChestScriptableObject> chestScriptableObject, GameObject chestPrefab)
+        public ChestPool(List<ChestScriptableObject> chestScriptableObject, ChestView chestPrefab)
         {
             this.chestScriptableObject = chestScriptableObject;
             this.chestPrefab = chestPrefab;
         }
 
         public ChestController GetChest(SlotsUIController slotUIController,
-            UnlockSelectionUIController unlockSelectionUIController)
+            UnlockChesSelectionUIController unlockSelectionUIController)
         {
             if (pooledChests.Count > 0)
             {
@@ -35,11 +34,12 @@ namespace ChestSystem.Chest
         }
 
         private ChestController CreateChest(SlotsUIController slotUIController,
-            UnlockSelectionUIController unlockSelectionUIController)
+            UnlockChesSelectionUIController unlockSelectionUIController)
         {
             PooledChest pooledChest = new PooledChest();
 
-            pooledChest.chest = new ChestController(chestScriptableObject, chestPrefab,
+            ChestView chestView = Object.Instantiate(chestPrefab);
+            pooledChest.chest = new ChestController(chestScriptableObject, chestView,
                 slotUIController, unlockSelectionUIController);
             pooledChest.isUsed = true;
 

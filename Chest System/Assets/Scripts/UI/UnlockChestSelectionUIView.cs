@@ -19,8 +19,12 @@ namespace ChestSystem.UI
         [SerializeField] private Button unlockChestWithGemsButton;
         [SerializeField] private Button undoButton;
         [SerializeField] private Button collectButton;
+        [SerializeField] private GameObject chestAlreadyUnlockingPanel;
+
+        [Header("Display Collected Values")]
         [SerializeField] private GameObject displayCollectedValues;
-        [SerializeField] private GameObject checkAlreadyUnlockingPanel;
+        [SerializeField] private TextMeshProUGUI collectedGemsText;
+        [SerializeField] private TextMeshProUGUI collectedCoinsText;
 
         private void Start()
         {
@@ -105,6 +109,30 @@ namespace ChestSystem.UI
         public Button GetCollectButton()
         {
             return collectButton;
+        }
+
+        public void EnableDisplayCollectedValues()
+        {
+            displayCollectedValues.gameObject.SetActive(true);
+        }
+        public void DisableDisplayCollectedValues()
+        {
+            displayCollectedValues.gameObject.SetActive(false);
+        }
+        public void EnableChestAlreadyUnlockingPanel()
+        {
+            chestAlreadyUnlockingPanel.gameObject.SetActive(true);
+        }
+
+        public void DisableChestAlreadyUnlockingPanel()
+        {
+            chestAlreadyUnlockingPanel.gameObject.SetActive(false);
+        }
+
+        public void SetCollectedValues(int collectedGems, int collectedCoins)
+        {
+            collectedGemsText.text = collectedGems.ToString();
+            collectedCoinsText.text = collectedCoins.ToString();
         }
     }
 }

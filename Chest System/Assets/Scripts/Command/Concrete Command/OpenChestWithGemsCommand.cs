@@ -22,6 +22,7 @@ namespace ChestSystem.Commands
                 int remainingGems = gemsCount - GemsRequiredToUnlockCount;
                 this.chestController.ChangeState(ChestState.Unlocked);
                 this.chestController.DisableTimerText();
+                this.chestController.SetIsChestUnlockedWithGems(true);
                 playerController.SetGemsCount(remainingGems);
                 GameService.Instance.actionService.GetOpenChestWithGemsAction().PerformAction();
             }

@@ -17,6 +17,7 @@ namespace ChestSystem.Chest
         public bool isCountingStarted = false;
         private int GemsRequiredToUnlockChest;
         private SlotsUIView currentSlot;
+        private bool isChestunlockedWithGems = false;
 
         public ChestController(List<ChestScriptableObject> chestScriptableObject, ChestView chestView,
             SlotsUIController slotUIController, UnlockChestSelectionUIController unlockSelectionUIController)
@@ -84,7 +85,7 @@ namespace ChestSystem.Chest
         public void UndoUnlockChestWithGems() => GameService.Instance.commandInvoker.Undo();
 
         public void EnableUnlockSelection() => unlockSelectionUIController.SetUnlockChestSelection(GetGemsRequiredToUnlockCount(),
-                chestModel.GetCurrentChestType().ToString(), this, slotUIController, currentSlot);
+                chestModel.GetCurrentChestType().ToString(), this, slotUIController, currentSlot, isChestunlockedWithGems);
 
         public int GetGemsRequiredToUnlockCount()
         {
@@ -171,5 +172,8 @@ namespace ChestSystem.Chest
         }
 
         public void EnableChest() => chestView.gameObject.SetActive(true);
+
+        public void SetIsChestUnlockedWithGems(bool v)
+            => isChestunlockedWithGems = v;
     }
 }

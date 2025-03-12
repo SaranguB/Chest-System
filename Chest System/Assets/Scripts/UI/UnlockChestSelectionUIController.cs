@@ -8,20 +8,24 @@ namespace ChestSystem.UI
         private ChestController currentChestController;
         private SlotsUIController currentSlotController;
         private SlotsUIView currentSlot;
-
+        private bool isChestunlockedWithGems = false;
         public UnlockChestSelectionUIController(UnlockChestSelectionUIView unlockChestSelectionUIView)
         {
             this.unlockSelectionUIView = unlockChestSelectionUIView;
         }
 
         public void SetUnlockChestSelection(int gemsRequiredCount, string chestType,
-            ChestController chestController, SlotsUIController slotUIController, SlotsUIView currentSlot)
+            ChestController chestController, SlotsUIController slotUIController, SlotsUIView currentSlot,
+            bool isChestunlockedWithGems)
         {
             currentChestController = chestController;
             currentSlotController = slotUIController;
             this.currentSlot = currentSlot;
+            this.isChestunlockedWithGems = isChestunlockedWithGems;
 
-            unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType, chestController.CurrentChestState());
+            unlockSelectionUIView.SetUnlockChestSelection(gemsRequiredCount, chestType,
+                chestController.CurrentChestState(), isChestunlockedWithGems);
+
             RemoveListeners();
             AdddListeners();
         }
@@ -80,5 +84,8 @@ namespace ChestSystem.UI
 
         public void SetCollectedValues(int collectedGems, int collectedCoins)
             => unlockSelectionUIView.SetCollectedValues(collectedGems, collectedCoins);
+
+        public void SetIsChestUnlockedWithGems(bool value)
+           => unlockSelectionUIView.SetIsChestUnlockedWithGems(value);
     }
 }

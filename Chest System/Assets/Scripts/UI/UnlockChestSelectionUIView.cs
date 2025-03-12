@@ -10,6 +10,7 @@ namespace ChestSystem.UI
 {
     public class UnlockChestSelectionUIView : MonoBehaviour
     {
+        private bool isChestUnlockedWithGems = false;
         private CanvasGroup canvasGroup;
         [SerializeField] private TextMeshProUGUI gemsText;
         [SerializeField] private TextMeshProUGUI chestTypeText;
@@ -19,7 +20,7 @@ namespace ChestSystem.UI
         [SerializeField] private Button undoButton;
         [SerializeField] private Button collectButton;
         [SerializeField] private GameObject chestAlreadyUnlockingPanel;
-
+       
         [Header("Display Collected Values")]
         [SerializeField] private GameObject displayCollectedValues;
         [SerializeField] private TextMeshProUGUI collectedGemsText;
@@ -31,8 +32,10 @@ namespace ChestSystem.UI
             closeButton.onClick.AddListener(DisableUnlockSelection);
         }
 
-        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType, IState currentChestState)
+        public void SetUnlockChestSelection(int gemsRequiredCount, string chestType, IState currentChestState,
+            bool isChestUnlockedWithGems)
         {
+            this.isChestUnlockedWithGems = isChestUnlockedWithGems;
             EnableUnlockSelection();
             SetGemsText(gemsRequiredCount);
             SetChestTypeText(chestType);
@@ -59,7 +62,8 @@ namespace ChestSystem.UI
                     break;
 
                 case UnlockedState:
-                    undoButton.gameObject.SetActive(true);
+                    if (isChestUnlockedWithGems)
+                        undoButton.gameObject.SetActive(true);
                     collectButton.gameObject.SetActive(true);
                     break;
 
@@ -94,7 +98,7 @@ namespace ChestSystem.UI
             => collectButton;
 
         public void EnableDisplayCollectedValues()
-           =>  displayCollectedValues.gameObject.SetActive(true);
+           => displayCollectedValues.gameObject.SetActive(true);
 
         public void DisableDisplayCollectedValues()
             => displayCollectedValues.gameObject.SetActive(false);
@@ -110,5 +114,8 @@ namespace ChestSystem.UI
             collectedGemsText.text = collectedGems.ToString();
             collectedCoinsText.text = collectedCoins.ToString();
         }
+
+        public void SetIsChestUnlockedWithGems(bool value)
+            => isChestUnlockedWithGems = value;
     }
 }

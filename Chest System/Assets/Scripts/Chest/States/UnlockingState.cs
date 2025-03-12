@@ -36,7 +36,7 @@ namespace ChestSystem.Chest
                 remainingTime = 0;
 
                 chestController.SetRemainingTime(remainingTime / 60);
-                chestController.SetTimerText(remainingTime);
+                chestController.DisableTimerText();
                 chestStateMachine.ChangeState(ChestState.Unlocked);
             }
         }

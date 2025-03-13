@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using ChestSystem.Sound;
 
 namespace ChestSystem.UI
 {

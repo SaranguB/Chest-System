@@ -4,6 +4,7 @@ using ChestSystem.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using ChestSystem.Sound;
 
 namespace ChestSystem.Chest
 {

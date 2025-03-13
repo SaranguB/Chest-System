@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilis;
-
+using ChestSystem.Sound;
 
 namespace ChestSystem.UI
 {
@@ -44,31 +44,32 @@ namespace ChestSystem.UI
 
         private void SetButtons(IState currentChestState)
         {
-            startTimerButton.gameObject.SetActive(false);
-            unlockChestWithGemsButton.gameObject.SetActive(false);
-            undoButton.gameObject.SetActive(false);
-            collectButton.gameObject.SetActive(false);
-            displayCollectedValues.gameObject.SetActive(false);
+            DisableGameObject(startTimerButton.gameObject);
+            DisableGameObject(unlockChestWithGemsButton.gameObject);           
+            DisableGameObject(undoButton.gameObject);
+            DisableGameObject(collectButton.gameObject);
+            DisableGameObject(displayCollectedValues.gameObject);
 
             switch (currentChestState)
             {
                 case LockedState:
-                    startTimerButton.gameObject.SetActive(true);
-                    unlockChestWithGemsButton.gameObject.SetActive(true);
+                    EnableGameObject(startTimerButton.gameObject);
+                    EnableGameObject(unlockChestWithGemsButton.gameObject);
                     break;
 
                 case UnlockingState:
-                    unlockChestWithGemsButton.gameObject.SetActive(true);
+                    EnableGameObject(startTimerButton.gameObject);
+                    EnableGameObject(unlockChestWithGemsButton.gameObject);
                     break;
 
                 case UnlockedState:
                     if (isChestUnlockedWithGems)
-                        undoButton.gameObject.SetActive(true);
-                    collectButton.gameObject.SetActive(true);
+                        EnableGameObject(undoButton.gameObject);
+                    EnableGameObject(collectButton.gameObject);
                     break;
 
                 case CollectedState:
-                    displayCollectedValues.gameObject.SetActive(true);
+                    EnableGameObject(displayCollectedValues.gameObject);
                     break;
             }
         }
@@ -98,22 +99,28 @@ namespace ChestSystem.UI
             => collectButton;
 
         public void EnableDisplayCollectedValues()
-           => displayCollectedValues.gameObject.SetActive(true);
+           => EnableGameObject(displayCollectedValues.gameObject);
 
         public void DisableDisplayCollectedValues()
         {
             GameService.Instance.SoundService.PlaySound(Sounds.ButtonPressedSound);
-            displayCollectedValues.gameObject.SetActive(false);
+            DisableGameObject(displayCollectedValues.gameObject);
         }
 
         public void EnableChestAlreadyUnlockingPanel()
-            => chestAlreadyUnlockingPanel.gameObject.SetActive(true);
+            => EnableGameObject(chestAlreadyUnlockingPanel.gameObject);
 
         public void DisableChestAlreadyUnlockingPanel()
         {
             GameService.Instance.SoundService.PlaySound(Sounds.ButtonPressedSound);
-            chestAlreadyUnlockingPanel.gameObject.SetActive(false);
+            DisableGameObject(chestAlreadyUnlockingPanel.gameObject);
         }
+
+        private void EnableGameObject(GameObject panel)
+            => panel.SetActive(true);
+
+        private void DisableGameObject(GameObject panel) 
+            => panel.SetActive(false);
 
         public void SetCollectedValues(int collectedGems, int collectedCoins)
         {

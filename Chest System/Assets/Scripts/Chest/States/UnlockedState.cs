@@ -15,6 +15,7 @@ namespace ChestSystem.Chest
 
         public void OnStateEnter()
         {
+            GameService.Instance.SoundService.PlaySound(Sound.Sounds.ChestUnlocked);
             chestController.SetChestStateText("Unlocked");
         }
 

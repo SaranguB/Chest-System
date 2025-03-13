@@ -1,5 +1,6 @@
 using ChestSystem.Chest;
 using ChestSystem.Player;
+using ChestSystem.Sound;
 
 namespace ChestSystem.Actions
 {

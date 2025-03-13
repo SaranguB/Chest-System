@@ -1,5 +1,6 @@
 using ChestSystem.UI;
 using System.Collections.Generic;
+using ChestSystem.Sound;
 
 namespace ChestSystem.Chest
 {

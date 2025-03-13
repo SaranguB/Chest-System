@@ -1,4 +1,6 @@
 using ChestSystem.Chest;
+using UnityEngine.UI;
+using ChestSystem.Sound;
 
 namespace ChestSystem.UI
 {
@@ -32,10 +34,11 @@ namespace ChestSystem.UI
 
         private void RemoveListeners()
         {
-            unlockSelectionUIView.GetstartTimerButton().onClick.RemoveAllListeners();
-            unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.RemoveAllListeners();
-            unlockSelectionUIView.GetUndoButton().onClick.RemoveAllListeners();
-            unlockSelectionUIView.GetCollectButton().onClick.RemoveAllListeners();
+            RemoveListenerToButton(unlockSelectionUIView.GetstartTimerButton());
+            RemoveListenerToButton(unlockSelectionUIView.GetUnlockChestWithGemsButton());
+            RemoveListenerToButton(unlockSelectionUIView.GetUnlockChestWithGemsButton());
+            RemoveListenerToButton(unlockSelectionUIView.GetUndoButton());
+            RemoveListenerToButton(unlockSelectionUIView.GetCollectButton());
         }
 
         private void AdddListeners()
@@ -44,6 +47,11 @@ namespace ChestSystem.UI
             unlockSelectionUIView.GetUnlockChestWithGemsButton().onClick.AddListener(SetUnlockChestWithGemsButton);
             unlockSelectionUIView.GetUndoButton().onClick.AddListener(SetUndoButton);
             unlockSelectionUIView.GetCollectButton().onClick.AddListener(SetCollectButton);
+        }
+
+        private void RemoveListenerToButton(Button button)
+        {
+            button.onClick.RemoveAllListeners();
         }
 
         private void SetCollectButton()

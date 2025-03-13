@@ -3,6 +3,7 @@ using ChestSystem.Chest;
 using ChestSystem.Commands;
 using ChestSystem.Events;
 using ChestSystem.Player;
+using ChestSystem.Sound;
 using ChestSystem.UI;
 using System.Collections.Generic;
 using UnityEngine;

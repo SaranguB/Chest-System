@@ -1,14 +1,17 @@
-using UnityEngine;
-
 namespace ChestSystem.Events
 {
     public class EventService
     {
-        public EventController OnGameStatedEvent;
-
+        public EventController onChestNotUnlockedWithGemsEvent;
+        public EventController<int,int> onRewardCollectedEvent;
+        public EventController onSlotNotAvailableEvent;
         public EventService()
         {
-            OnGameStatedEvent = new EventController();
+            onChestNotUnlockedWithGemsEvent = new EventController();
+            onRewardCollectedEvent = new EventController<int, int>();
+            onSlotNotAvailableEvent = new EventController();
         }
+
+        
     }
 }

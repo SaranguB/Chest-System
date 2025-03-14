@@ -3411,7 +3411,7 @@ MonoBehaviour:
   sounds:
   - sound: 0
     soundClip: {fileID: 8300000, guid: ecba07fe2ddf3de41a85cf7309854927, type: 3}
-    volume: 50
+    volume: 1
   - sound: 1
     soundClip: {fileID: 8300000, guid: 50295851db9c1b7498962eaf0aa4e0c8, type: 3}
     volume: 100
